@@ -27,6 +27,8 @@ ACT_TITLES = {1: "The Before", 2: "The Deep Clean", 3: "The Reveal"}
 ACT_BEATS = {1: 24, 2: 40, 3: 44}            # 108 beats = 72.0 s at 90 BPM
 # Story window: Friday 11:25 AM (clip 0195) -> Sunday 5:54 AM (clip 0220).
 SINCE, UNTIL = dt.datetime(2025, 5, 23, 11, 25), dt.datetime(2025, 5, 25, 6, 0)
+# The best "before" shot: opens the film and is the BEFORE half of the closing split screen.
+HERO_BEFORE = "112705_0197"
 ACT2_FROM, ACT3_FROM = dt.datetime(2025, 5, 23, 17, 0), dt.datetime(2025, 5, 25, 0, 0)
 TRANS_FRAMES = {"cut": 0, "whip": 6, "dissolve": 12, "dip": 10}
 XFADE = {"whip": "slideleft", "dissolve": "fade", "dip": "fadewhite"}
@@ -236,8 +238,9 @@ def plan_slots(clips):
                       "mode": mode, "note": note, "kind": kind})
 
     # Act 1 - before: 4-beat establishing shot under the title, then 2-beat quick cuts
-    a1 = acts[1]
-    add(1, a1[0], 4, (1, 1), "cut", "glide", "establishing shot under main title")
+    hero = next((c for c in acts[1] if HERO_BEFORE and HERO_BEFORE in c["stem"]), acts[1][0])
+    add(1, hero, 4, (1, 1), "cut", "glide", "hero before shot under main title")
+    a1 = [c for c in acts[1] if c is not hero] or [hero]     # the rest follow in shooting order
     n = (ACT_BEATS[1] - 4) // 2
     per = share(n, [math.sqrt(c["duration"]) for c in a1])
     j = 0
@@ -280,10 +283,10 @@ def plan_slots(clips):
             add(3, c, 4, (0.8, 0.8) if slow else (1, 1), "dip" if j == 0 else "dissolve", "glide",
                 "cinematic glide" + (" (80% slow-mo)" if slow else ""))
             j += 1
-    add(3, a3[-1], 8, (1, 1), "dissolve", "glide", "before/after split: %s vs %s" % (a1[0]["num"], a3[-1]["num"]),
+    add(3, a3[-1], 8, (1, 1), "dissolve", "glide", "before/after split: %s vs %s" % (hero["num"], a3[-1]["num"]),
         kind="split")
     add(3, a3[-1], 4, (1, 1), "dissolve", "glide", "outro hero shot, fade to black")
-    return slots, a1[0]
+    return slots, hero
 
 
 def cmd_edl(a):
@@ -339,7 +342,8 @@ def cmd_edl(a):
                "transition": s["trans"] if i else "fade-in", "audio": audio, "note": s["note"], "pops": []}
         if s["kind"] == "split":
             b = next(x for x in segs if x["clip"] == first_clip["stem"])
-            seg["before"] = {"clip": b["clip"], "src_in": b["src_in"], "fx": b["fx"]}
+            bin_ = max(0.0, min(b["src_in"], first_clip["duration"] - D - 1.2))   # must not run off the clip
+            seg["before"] = {"clip": b["clip"], "src_in": round(bin_, 3), "fx": b["fx"]}
         # pop/snap SFX on tool placements: audio transients when analysed, else the 1-beat snap cuts
         if s["act"] == 2:
             if an and an["hits"]:
@@ -835,6 +839,7 @@ def cmd_render(a):
 
 
 def main():
+    global BPM, HERO_BEFORE
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("cmd", choices=["scan", "analyze", "edl", "render", "all"])
     ap.add_argument("--media", default=str(HERE / "media"), help="folder holding the DJI .MP4 and .LRF files")
@@ -848,13 +853,15 @@ def main():
     ap.add_argument("--bpm", type=float, help="tempo of --music (re-run `edl` so cuts follow it)")
     ap.add_argument("--exclude", help="comma-separated clips to leave out, matched against the filename, "
                     "e.g. 112633_0196,0198 (applies at `scan`; re-run `edl` afterwards)")
+    ap.add_argument("--hero", help="clip to use as the hero before shot (filename fragment), default " + HERO_BEFORE)
     ap.add_argument("--input-lut", help="optional .cube applied before the grade (e.g. D-Log M to Rec.709)")
     ap.add_argument("--font-bold")
     ap.add_argument("--font-regular")
     a = ap.parse_args()
     if a.bpm:
-        global BPM
         BPM = a.bpm
+    if a.hero:
+        HERO_BEFORE = a.hero
     if a.cmd in ("scan", "all"):
         cmd_scan(a)
     if a.cmd in ("analyze", "all"):
