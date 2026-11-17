@@ -23,7 +23,7 @@ FPS = 30
 BPM = 90.0                      # 90 BPM @ 30 fps -> one beat is exactly 20 frames
 SR = 48000
 TITLE, SUBTITLE = "Bathroom Revival Weekend", "Before & After"
-ACT_TITLES = {1: "Day 1: Demolition", 2: "Day 2: The Build", 3: "Final Reveal"}
+ACT_TITLES = {1: "The Before", 2: "The Deep Clean", 3: "The Reveal"}
 ACT_BEATS = {1: 24, 2: 40, 3: 44}            # 108 beats = 72.0 s at 90 BPM
 # Story window: Friday 11:40 AM (clip 0201) -> Sunday 5:54 AM (clip 0220).
 SINCE, UNTIL = dt.datetime(2025, 5, 23, 11, 40), dt.datetime(2025, 5, 25, 6, 0)

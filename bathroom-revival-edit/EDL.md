@@ -7,7 +7,7 @@ Picks: **blind** - no footage was analysed; in-points are evenly spaced inside e
 Transitions land centred on the record-in time (dissolve 12 f, whip 6 f, dip-to-white 10 f). Source times are seconds from the head of each clip; speed is a linear ramp start>end.
 
 
-## Act 1 - Day 1: Demolition
+## Act 1 - The Before
 
 | # | Rec in | Rec out | Dur | Clip | Src in | Src out | Speed | Transition in | Audio | Clock | Note |
 |--:|---|---|--:|---|--:|--:|---|---|---|---|---|
@@ -23,7 +23,7 @@ Transitions land centred on the record-in time (dissolve 12 f, whip 6 f, dip-to-
 | 10 | 00:00:13:10 | 00:00:14:20 | 1.33 | Fri 0203 | 30.15 | 32.15 | 1x > 2x ramp | cut | music | Friday 11:44 AM | quick cut on action, ramp 1x>2x |
 | 11 | 00:00:14:20 | 00:00:16:00 | 1.33 | Fri 0203 | 42.73 | 44.07 | 1x | cut | music + nat | Friday 11:45 AM | quick cut on action |
 
-## Act 2 - Day 2: The Build
+## Act 2 - The Deep Clean
 
 | # | Rec in | Rec out | Dur | Clip | Src in | Src out | Speed | Transition in | Audio | Clock | Note |
 |--:|---|---|--:|---|--:|--:|---|---|---|---|---|
@@ -58,7 +58,7 @@ Transitions land centred on the record-in time (dissolve 12 f, whip 6 f, dip-to-
 | 40 | 00:00:41:10 | 00:00:42:00 | 0.67 | Sat 0216 | 36.17 | 36.83 | 1x | cut | music + nat + pop | Saturday 9:38 PM | jump cut, snap |
 | 41 | 00:00:42:00 | 00:00:42:20 | 0.67 | Sat 0216 | 60.15 | 60.82 | 1x | cut | music + nat + pop | Saturday 9:38 PM | jump cut, snap |
 
-## Act 3 - Final Reveal
+## Act 3 - The Reveal
 
 | # | Rec in | Rec out | Dur | Clip | Src in | Src out | Speed | Transition in | Audio | Clock | Note |
 |--:|---|---|--:|---|--:|--:|---|---|---|---|---|
