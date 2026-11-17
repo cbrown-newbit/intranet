@@ -1,0 +1,1386 @@
+{
+ "title": "Bathroom Revival Weekend",
+ "fps": 30,
+ "bpm": 90.0,
+ "frames": 2160,
+ "duration": 72.0,
+ "analysed": [],
+ "act_titles": {
+  "1": "Day 1: Demolition",
+  "2": "Day 2: The Build",
+  "3": "Final Reveal"
+ },
+ "segments": [
+  {
+   "n": 1,
+   "act": 1,
+   "kind": "clip",
+   "clip": "DJI_20250523114036_0201_D",
+   "rec_in": 0,
+   "frames": 80,
+   "head": 0,
+   "tail": 0,
+   "render_in": 3.592,
+   "speed": [
+    1,
+    1
+   ],
+   "fx": 0.5,
+   "src_in": 3.592,
+   "src_out": 6.258,
+   "transition": "fade-in",
+   "audio": "ambient",
+   "note": "establishing shot under main title",
+   "pops": [],
+   "wb": [
+    1.0,
+    1.0
+   ]
+  },
+  {
+   "n": 2,
+   "act": 1,
+   "kind": "clip",
+   "clip": "DJI_20250523114036_0201_D",
+   "rec_in": 80,
+   "frames": 40,
+   "head": 0,
+   "tail": 0,
+   "render_in": 13.308,
+   "speed": [
+    1,
+    1
+   ],
+   "fx": 0.5,
+   "src_in": 13.308,
+   "src_out": 14.642,
+   "transition": "cut",
+   "audio": "ambient",
+   "note": "quick cut on action",
+   "pops": [],
+   "wb": [
+    1.0,
+    1.0
+   ]
+  },
+  {
+   "n": 3,
+   "act": 1,
+   "kind": "clip",
+   "clip": "DJI_20250523114036_0201_D",
+   "rec_in": 120,
+   "frames": 40,
+   "head": 0,
+   "tail": 0,
+   "render_in": 22.358,
+   "speed": [
+    1,
+    1
+   ],
+   "fx": 0.5,
+   "src_in": 22.358,
+   "src_out": 23.692,
+   "transition": "cut",
+   "audio": "ambient",
+   "note": "quick cut on action",
+   "pops": [],
+   "wb": [
+    1.0,
+    1.0
+   ]
+  },
+  {
+   "n": 4,
+   "act": 1,
+   "kind": "clip",
+   "clip": "DJI_20250523114036_0201_D",
+   "rec_in": 160,
+   "frames": 40,
+   "head": 0,
+   "tail": 0,
+   "render_in": 31.075,
+   "speed": [
+    1,
+    2
+   ],
+   "fx": 0.5,
+   "src_in": 31.075,
+   "src_out": 33.075,
+   "transition": "cut",
+   "audio": "none",
+   "note": "quick cut on action, ramp 1x>2x",
+   "pops": [],
+   "wb": [
+    1.0,
+    1.0
+   ]
+  },
+  {
+   "n": 5,
+   "act": 1,
+   "kind": "clip",
+   "clip": "DJI_20250523114158_0202_D",
+   "rec_in": 200,
+   "frames": 40,
+   "head": 0,
+   "tail": 0,
+   "render_in": 6.433,
+   "speed": [
+    1,
+    1
+   ],
+   "fx": 0.5,
+   "src_in": 6.433,
+   "src_out": 7.767,
+   "transition": "cut",
+   "audio": "ambient",
+   "note": "quick cut on action",
+   "pops": [],
+   "wb": [
+    1.0,
+    1.0
+   ]
+  },
+  {
+   "n": 6,
+   "act": 1,
+   "kind": "clip",
+   "clip": "DJI_20250523114158_0202_D",
+   "rec_in": 240,
+   "frames": 40,
+   "head": 0,
+   "tail": 0,
+   "render_in": 19.833,
+   "speed": [
+    1,
+    1
+   ],
+   "fx": 0.5,
+   "src_in": 19.833,
+   "src_out": 21.167,
+   "transition": "cut",
+   "audio": "ambient",
+   "note": "quick cut on action",
+   "pops": [],
+   "wb": [
+    1.0,
+    1.0
+   ]
+  },
+  {
+   "n": 7,
+   "act": 1,
+   "kind": "clip",
+   "clip": "DJI_20250523114158_0202_D",
+   "rec_in": 280,
+   "frames": 40,
+   "head": 0,
+   "tail": 0,
+   "render_in": 32.9,
+   "speed": [
+    1,
+    2
+   ],
+   "fx": 0.5,
+   "src_in": 32.9,
+   "src_out": 34.9,
+   "transition": "cut",
+   "audio": "none",
+   "note": "quick cut on action, ramp 1x>2x",
+   "pops": [],
+   "wb": [
+    1.0,
+    1.0
+   ]
+  },
+  {
+   "n": 8,
+   "act": 1,
+   "kind": "clip",
+   "clip": "DJI_20250523114425_0203_D",
+   "rec_in": 320,
+   "frames": 40,
+   "head": 0,
+   "tail": 0,
+   "render_in": 5.883,
+   "speed": [
+    1,
+    1
+   ],
+   "fx": 0.5,
+   "src_in": 5.883,
+   "src_out": 7.217,
+   "transition": "cut",
+   "audio": "ambient",
+   "note": "quick cut on action",
+   "pops": [],
+   "wb": [
+    1.0,
+    1.0
+   ]
+  },
+  {
+   "n": 9,
+   "act": 1,
+   "kind": "clip",
+   "clip": "DJI_20250523114425_0203_D",
+   "rec_in": 360,
+   "frames": 40,
+   "head": 0,
+   "tail": 0,
+   "render_in": 18.183,
+   "speed": [
+    1,
+    1
+   ],
+   "fx": 0.5,
+   "src_in": 18.183,
+   "src_out": 19.517,
+   "transition": "cut",
+   "audio": "ambient",
+   "note": "quick cut on action",
+   "pops": [],
+   "wb": [
+    1.0,
+    1.0
+   ]
+  },
+  {
+   "n": 10,
+   "act": 1,
+   "kind": "clip",
+   "clip": "DJI_20250523114425_0203_D",
+   "rec_in": 400,
+   "frames": 40,
+   "head": 0,
+   "tail": 0,
+   "render_in": 30.15,
+   "speed": [
+    1,
+    2
+   ],
+   "fx": 0.5,
+   "src_in": 30.15,
+   "src_out": 32.15,
+   "transition": "cut",
+   "audio": "none",
+   "note": "quick cut on action, ramp 1x>2x",
+   "pops": [],
+   "wb": [
+    1.0,
+    1.0
+   ]
+  },
+  {
+   "n": 11,
+   "act": 1,
+   "kind": "clip",
+   "clip": "DJI_20250523114425_0203_D",
+   "rec_in": 440,
+   "frames": 40,
+   "head": 0,
+   "tail": 3,
+   "render_in": 42.733,
+   "speed": [
+    1,
+    1
+   ],
+   "fx": 0.5,
+   "src_in": 42.733,
+   "src_out": 44.067,
+   "transition": "cut",
+   "audio": "ambient",
+   "note": "quick cut on action",
+   "pops": [],
+   "wb": [
+    1.0,
+    1.0
+   ]
+  },
+  {
+   "n": 12,
+   "act": 2,
+   "kind": "clip",
+   "clip": "DJI_20250523195100_0209_D",
+   "rec_in": 480,
+   "frames": 40,
+   "head": 3,
+   "tail": 0,
+   "render_in": 50.508,
+   "speed": [
+    4,
+    16
+   ],
+   "fx": 0.5,
+   "src_in": 50.95,
+   "src_out": 64.842,
+   "transition": "whip",
+   "audio": "none",
+   "note": "time-lapse",
+   "pops": [],
+   "wb": [
+    1.0,
+    1.0
+   ]
+  },
+  {
+   "n": 13,
+   "act": 2,
+   "kind": "clip",
+   "clip": "DJI_20250523195100_0209_D",
+   "rec_in": 520,
+   "frames": 20,
+   "head": 0,
+   "tail": 0,
+   "render_in": 169.558,
+   "speed": [
+    8,
+    8
+   ],
+   "fx": 0.5,
+   "src_in": 169.558,
+   "src_out": 174.892,
+   "transition": "cut",
+   "audio": "none",
+   "note": "time-lapse, snap",
+   "pops": [
+    0
+   ],
+   "wb": [
+    1.0,
+    1.0
+   ]
+  },
+  {
+   "n": 14,
+   "act": 2,
+   "kind": "clip",
+   "clip": "DJI_20250523195100_0209_D",
+   "rec_in": 540,
+   "frames": 20,
+   "head": 0,
+   "tail": 0,
+   "render_in": 284.108,
+   "speed": [
+    8,
+    8
+   ],
+   "fx": 0.5,
+   "src_in": 284.108,
+   "src_out": 289.442,
+   "transition": "cut",
+   "audio": "none",
+   "note": "time-lapse, snap",
+   "pops": [
+    0
+   ],
+   "wb": [
+    1.0,
+    1.0
+   ]
+  },
+  {
+   "n": 15,
+   "act": 2,
+   "kind": "clip",
+   "clip": "DJI_20250523195100_0209_D",
+   "rec_in": 560,
+   "frames": 40,
+   "head": 0,
+   "tail": 0,
+   "render_in": 394.658,
+   "speed": [
+    4,
+    16
+   ],
+   "fx": 0.5,
+   "src_in": 394.658,
+   "src_out": 407.992,
+   "transition": "cut",
+   "audio": "none",
+   "note": "time-lapse",
+   "pops": [],
+   "wb": [
+    1.0,
+    1.0
+   ]
+  },
+  {
+   "n": 16,
+   "act": 2,
+   "kind": "clip",
+   "clip": "DJI_20250523210859_0210_D",
+   "rec_in": 600,
+   "frames": 20,
+   "head": 0,
+   "tail": 0,
+   "render_in": 125.246,
+   "speed": [
+    8,
+    8
+   ],
+   "fx": 0.5,
+   "src_in": 125.246,
+   "src_out": 130.579,
+   "transition": "cut",
+   "audio": "none",
+   "note": "time-lapse, snap",
+   "pops": [
+    0
+   ],
+   "wb": [
+    1.0,
+    1.0
+   ]
+  },
+  {
+   "n": 17,
+   "act": 2,
+   "kind": "clip",
+   "clip": "DJI_20250523210859_0210_D",
+   "rec_in": 620,
+   "frames": 20,
+   "head": 0,
+   "tail": 0,
+   "render_in": 380.271,
+   "speed": [
+    8,
+    8
+   ],
+   "fx": 0.5,
+   "src_in": 380.271,
+   "src_out": 385.604,
+   "transition": "cut",
+   "audio": "none",
+   "note": "time-lapse, snap",
+   "pops": [
+    0
+   ],
+   "wb": [
+    1.0,
+    1.0
+   ]
+  },
+  {
+   "n": 18,
+   "act": 2,
+   "kind": "clip",
+   "clip": "DJI_20250523210859_0210_D",
+   "rec_in": 640,
+   "frames": 40,
+   "head": 0,
+   "tail": 0,
+   "render_in": 631.296,
+   "speed": [
+    4,
+    16
+   ],
+   "fx": 0.5,
+   "src_in": 631.296,
+   "src_out": 644.629,
+   "transition": "cut",
+   "audio": "none",
+   "note": "time-lapse",
+   "pops": [],
+   "wb": [
+    1.0,
+    1.0
+   ]
+  },
+  {
+   "n": 19,
+   "act": 2,
+   "kind": "clip",
+   "clip": "DJI_20250523210859_0210_D",
+   "rec_in": 680,
+   "frames": 20,
+   "head": 0,
+   "tail": 0,
+   "render_in": 890.321,
+   "speed": [
+    8,
+    8
+   ],
+   "fx": 0.5,
+   "src_in": 890.321,
+   "src_out": 895.654,
+   "transition": "cut",
+   "audio": "none",
+   "note": "time-lapse, snap",
+   "pops": [
+    0
+   ],
+   "wb": [
+    1.0,
+    1.0
+   ]
+  },
+  {
+   "n": 20,
+   "act": 2,
+   "kind": "clip",
+   "clip": "DJI_20250523210859_0210_D",
+   "rec_in": 700,
+   "frames": 20,
+   "head": 0,
+   "tail": 0,
+   "render_in": 1145.346,
+   "speed": [
+    8,
+    8
+   ],
+   "fx": 0.5,
+   "src_in": 1145.346,
+   "src_out": 1150.679,
+   "transition": "cut",
+   "audio": "none",
+   "note": "time-lapse, snap",
+   "pops": [
+    0
+   ],
+   "wb": [
+    1.0,
+    1.0
+   ]
+  },
+  {
+   "n": 21,
+   "act": 2,
+   "kind": "clip",
+   "clip": "DJI_20250523210859_0210_D",
+   "rec_in": 720,
+   "frames": 40,
+   "head": 0,
+   "tail": 0,
+   "render_in": 1396.371,
+   "speed": [
+    4,
+    16
+   ],
+   "fx": 0.5,
+   "src_in": 1396.371,
+   "src_out": 1409.704,
+   "transition": "cut",
+   "audio": "none",
+   "note": "time-lapse",
+   "pops": [],
+   "wb": [
+    1.0,
+    1.0
+   ]
+  },
+  {
+   "n": 22,
+   "act": 2,
+   "kind": "clip",
+   "clip": "DJI_20250523210859_0210_D",
+   "rec_in": 760,
+   "frames": 20,
+   "head": 0,
+   "tail": 0,
+   "render_in": 1655.396,
+   "speed": [
+    8,
+    8
+   ],
+   "fx": 0.5,
+   "src_in": 1655.396,
+   "src_out": 1660.729,
+   "transition": "cut",
+   "audio": "none",
+   "note": "time-lapse, snap",
+   "pops": [
+    0
+   ],
+   "wb": [
+    1.0,
+    1.0
+   ]
+  },
+  {
+   "n": 23,
+   "act": 2,
+   "kind": "clip",
+   "clip": "DJI_20250523210859_0210_D",
+   "rec_in": 780,
+   "frames": 20,
+   "head": 0,
+   "tail": 3,
+   "render_in": 1910.021,
+   "speed": [
+    8,
+    8
+   ],
+   "fx": 0.5,
+   "src_in": 1910.021,
+   "src_out": 1915.354,
+   "transition": "cut",
+   "audio": "none",
+   "note": "time-lapse, snap",
+   "pops": [
+    0
+   ],
+   "wb": [
+    1.0,
+    1.0
+   ]
+  },
+  {
+   "n": 24,
+   "act": 2,
+   "kind": "clip",
+   "clip": "DJI_20250524212549_0211_D",
+   "rec_in": 800,
+   "frames": 40,
+   "head": 3,
+   "tail": 0,
+   "render_in": 12.667,
+   "speed": [
+    2,
+    2
+   ],
+   "fx": 0.5,
+   "src_in": 12.867,
+   "src_out": 15.533,
+   "transition": "whip",
+   "audio": "none",
+   "note": "jump cut",
+   "pops": [],
+   "wb": [
+    1.0,
+    1.0
+   ]
+  },
+  {
+   "n": 25,
+   "act": 2,
+   "kind": "clip",
+   "clip": "DJI_20250524212549_0211_D",
+   "rec_in": 840,
+   "frames": 20,
+   "head": 0,
+   "tail": 0,
+   "render_in": 41.167,
+   "speed": [
+    1,
+    1
+   ],
+   "fx": 0.5,
+   "src_in": 41.167,
+   "src_out": 41.833,
+   "transition": "cut",
+   "audio": "ambient",
+   "note": "jump cut, snap",
+   "pops": [
+    0
+   ],
+   "wb": [
+    1.0,
+    1.0
+   ]
+  },
+  {
+   "n": 26,
+   "act": 2,
+   "kind": "clip",
+   "clip": "DJI_20250524212549_0211_D",
+   "rec_in": 860,
+   "frames": 20,
+   "head": 0,
+   "tail": 0,
+   "render_in": 68.567,
+   "speed": [
+    1,
+    1
+   ],
+   "fx": 0.5,
+   "src_in": 68.567,
+   "src_out": 69.233,
+   "transition": "cut",
+   "audio": "ambient",
+   "note": "jump cut, snap",
+   "pops": [
+    0
+   ],
+   "wb": [
+    1.0,
+    1.0
+   ]
+  },
+  {
+   "n": 27,
+   "act": 2,
+   "kind": "clip",
+   "clip": "DJI_20250524212810_0212_D",
+   "rec_in": 880,
+   "frames": 40,
+   "head": 0,
+   "tail": 0,
+   "render_in": 8.433,
+   "speed": [
+    1.5,
+    3
+   ],
+   "fx": 0.5,
+   "src_in": 8.433,
+   "src_out": 11.433,
+   "transition": "cut",
+   "audio": "none",
+   "note": "jump cut",
+   "pops": [],
+   "wb": [
+    1.0,
+    1.0
+   ]
+  },
+  {
+   "n": 28,
+   "act": 2,
+   "kind": "clip",
+   "clip": "DJI_20250524212810_0212_D",
+   "rec_in": 920,
+   "frames": 20,
+   "head": 0,
+   "tail": 0,
+   "render_in": 28.667,
+   "speed": [
+    1,
+    1
+   ],
+   "fx": 0.5,
+   "src_in": 28.667,
+   "src_out": 29.333,
+   "transition": "cut",
+   "audio": "ambient",
+   "note": "jump cut, snap",
+   "pops": [
+    0
+   ],
+   "wb": [
+    1.0,
+    1.0
+   ]
+  },
+  {
+   "n": 29,
+   "act": 2,
+   "kind": "clip",
+   "clip": "DJI_20250524212810_0212_D",
+   "rec_in": 940,
+   "frames": 20,
+   "head": 0,
+   "tail": 0,
+   "render_in": 47.733,
+   "speed": [
+    1,
+    1
+   ],
+   "fx": 0.5,
+   "src_in": 47.733,
+   "src_out": 48.4,
+   "transition": "cut",
+   "audio": "ambient",
+   "note": "jump cut, snap",
+   "pops": [
+    0
+   ],
+   "wb": [
+    1.0,
+    1.0
+   ]
+  },
+  {
+   "n": 30,
+   "act": 2,
+   "kind": "clip",
+   "clip": "DJI_20250524212920_0213_D",
+   "rec_in": 960,
+   "frames": 40,
+   "head": 0,
+   "tail": 0,
+   "render_in": 8.267,
+   "speed": [
+    2,
+    2
+   ],
+   "fx": 0.5,
+   "src_in": 8.267,
+   "src_out": 10.933,
+   "transition": "cut",
+   "audio": "none",
+   "note": "jump cut",
+   "pops": [],
+   "wb": [
+    1.0,
+    1.0
+   ]
+  },
+  {
+   "n": 31,
+   "act": 2,
+   "kind": "clip",
+   "clip": "DJI_20250524212920_0213_D",
+   "rec_in": 1000,
+   "frames": 20,
+   "head": 0,
+   "tail": 0,
+   "render_in": 27.667,
+   "speed": [
+    1,
+    1
+   ],
+   "fx": 0.5,
+   "src_in": 27.667,
+   "src_out": 28.333,
+   "transition": "cut",
+   "audio": "ambient",
+   "note": "jump cut, snap",
+   "pops": [
+    0
+   ],
+   "wb": [
+    1.0,
+    1.0
+   ]
+  },
+  {
+   "n": 32,
+   "act": 2,
+   "kind": "clip",
+   "clip": "DJI_20250524212920_0213_D",
+   "rec_in": 1020,
+   "frames": 20,
+   "head": 0,
+   "tail": 0,
+   "render_in": 46.067,
+   "speed": [
+    1,
+    1
+   ],
+   "fx": 0.5,
+   "src_in": 46.067,
+   "src_out": 46.733,
+   "transition": "cut",
+   "audio": "ambient",
+   "note": "jump cut, snap",
+   "pops": [
+    0
+   ],
+   "wb": [
+    1.0,
+    1.0
+   ]
+  },
+  {
+   "n": 33,
+   "act": 2,
+   "kind": "clip",
+   "clip": "DJI_20250524213249_0214_D",
+   "rec_in": 1040,
+   "frames": 40,
+   "head": 0,
+   "tail": 0,
+   "render_in": 10.433,
+   "speed": [
+    1.5,
+    3
+   ],
+   "fx": 0.5,
+   "src_in": 10.433,
+   "src_out": 13.433,
+   "transition": "cut",
+   "audio": "none",
+   "note": "jump cut",
+   "pops": [],
+   "wb": [
+    1.0,
+    1.0
+   ]
+  },
+  {
+   "n": 34,
+   "act": 2,
+   "kind": "clip",
+   "clip": "DJI_20250524213249_0214_D",
+   "rec_in": 1080,
+   "frames": 20,
+   "head": 0,
+   "tail": 0,
+   "render_in": 34.667,
+   "speed": [
+    1,
+    1
+   ],
+   "fx": 0.5,
+   "src_in": 34.667,
+   "src_out": 35.333,
+   "transition": "cut",
+   "audio": "ambient",
+   "note": "jump cut, snap",
+   "pops": [
+    0
+   ],
+   "wb": [
+    1.0,
+    1.0
+   ]
+  },
+  {
+   "n": 35,
+   "act": 2,
+   "kind": "clip",
+   "clip": "DJI_20250524213249_0214_D",
+   "rec_in": 1100,
+   "frames": 20,
+   "head": 0,
+   "tail": 0,
+   "render_in": 57.733,
+   "speed": [
+    1,
+    1
+   ],
+   "fx": 0.5,
+   "src_in": 57.733,
+   "src_out": 58.4,
+   "transition": "cut",
+   "audio": "ambient",
+   "note": "jump cut, snap",
+   "pops": [
+    0
+   ],
+   "wb": [
+    1.0,
+    1.0
+   ]
+  },
+  {
+   "n": 36,
+   "act": 2,
+   "kind": "clip",
+   "clip": "DJI_20250524213452_0215_D",
+   "rec_in": 1120,
+   "frames": 40,
+   "head": 0,
+   "tail": 0,
+   "render_in": 9.267,
+   "speed": [
+    2,
+    2
+   ],
+   "fx": 0.5,
+   "src_in": 9.267,
+   "src_out": 11.933,
+   "transition": "cut",
+   "audio": "none",
+   "note": "jump cut",
+   "pops": [],
+   "wb": [
+    1.0,
+    1.0
+   ]
+  },
+  {
+   "n": 37,
+   "act": 2,
+   "kind": "clip",
+   "clip": "DJI_20250524213452_0215_D",
+   "rec_in": 1160,
+   "frames": 20,
+   "head": 0,
+   "tail": 0,
+   "render_in": 30.667,
+   "speed": [
+    1,
+    1
+   ],
+   "fx": 0.5,
+   "src_in": 30.667,
+   "src_out": 31.333,
+   "transition": "cut",
+   "audio": "ambient",
+   "note": "jump cut, snap",
+   "pops": [
+    0
+   ],
+   "wb": [
+    1.0,
+    1.0
+   ]
+  },
+  {
+   "n": 38,
+   "act": 2,
+   "kind": "clip",
+   "clip": "DJI_20250524213452_0215_D",
+   "rec_in": 1180,
+   "frames": 20,
+   "head": 0,
+   "tail": 0,
+   "render_in": 51.067,
+   "speed": [
+    1,
+    1
+   ],
+   "fx": 0.5,
+   "src_in": 51.067,
+   "src_out": 51.733,
+   "transition": "cut",
+   "audio": "ambient",
+   "note": "jump cut, snap",
+   "pops": [
+    0
+   ],
+   "wb": [
+    1.0,
+    1.0
+   ]
+  },
+  {
+   "n": 39,
+   "act": 2,
+   "kind": "clip",
+   "clip": "DJI_20250524213740_0216_D",
+   "rec_in": 1200,
+   "frames": 40,
+   "head": 0,
+   "tail": 0,
+   "render_in": 10.933,
+   "speed": [
+    1.5,
+    3
+   ],
+   "fx": 0.5,
+   "src_in": 10.933,
+   "src_out": 13.933,
+   "transition": "cut",
+   "audio": "none",
+   "note": "jump cut",
+   "pops": [],
+   "wb": [
+    1.0,
+    1.0
+   ]
+  },
+  {
+   "n": 40,
+   "act": 2,
+   "kind": "clip",
+   "clip": "DJI_20250524213740_0216_D",
+   "rec_in": 1240,
+   "frames": 20,
+   "head": 0,
+   "tail": 0,
+   "render_in": 36.167,
+   "speed": [
+    1,
+    1
+   ],
+   "fx": 0.5,
+   "src_in": 36.167,
+   "src_out": 36.833,
+   "transition": "cut",
+   "audio": "ambient",
+   "note": "jump cut, snap",
+   "pops": [
+    0
+   ],
+   "wb": [
+    1.0,
+    1.0
+   ]
+  },
+  {
+   "n": 41,
+   "act": 2,
+   "kind": "clip",
+   "clip": "DJI_20250524213740_0216_D",
+   "rec_in": 1260,
+   "frames": 20,
+   "head": 0,
+   "tail": 5,
+   "render_in": 60.15,
+   "speed": [
+    1,
+    1
+   ],
+   "fx": 0.5,
+   "src_in": 60.15,
+   "src_out": 60.817,
+   "transition": "cut",
+   "audio": "ambient",
+   "note": "jump cut, snap",
+   "pops": [
+    0
+   ],
+   "wb": [
+    1.0,
+    1.0
+   ]
+  },
+  {
+   "n": 42,
+   "act": 3,
+   "kind": "clip",
+   "clip": "DJI_20250525052358_0213_D",
+   "rec_in": 1280,
+   "frames": 80,
+   "head": 5,
+   "tail": 6,
+   "render_in": 15.483,
+   "speed": [
+    1,
+    1
+   ],
+   "fx": 0.5,
+   "src_in": 15.65,
+   "src_out": 18.317,
+   "transition": "dip",
+   "audio": "ambient",
+   "note": "cinematic glide",
+   "pops": [],
+   "wb": [
+    1.0,
+    1.0
+   ]
+  },
+  {
+   "n": 43,
+   "act": 3,
+   "kind": "clip",
+   "clip": "DJI_20250525053613_0214_D",
+   "rec_in": 1360,
+   "frames": 80,
+   "head": 6,
+   "tail": 6,
+   "render_in": 23.967,
+   "speed": [
+    1,
+    1
+   ],
+   "fx": 0.5,
+   "src_in": 24.167,
+   "src_out": 26.833,
+   "transition": "dissolve",
+   "audio": "ambient",
+   "note": "cinematic glide",
+   "pops": [],
+   "wb": [
+    1.0,
+    1.0
+   ]
+  },
+  {
+   "n": 44,
+   "act": 3,
+   "kind": "clip",
+   "clip": "DJI_20250525053928_0215_D",
+   "rec_in": 1440,
+   "frames": 80,
+   "head": 6,
+   "tail": 6,
+   "render_in": 18.967,
+   "speed": [
+    1,
+    1
+   ],
+   "fx": 0.5,
+   "src_in": 19.167,
+   "src_out": 21.833,
+   "transition": "dissolve",
+   "audio": "ambient",
+   "note": "cinematic glide",
+   "pops": [],
+   "wb": [
+    1.0,
+    1.0
+   ]
+  },
+  {
+   "n": 45,
+   "act": 3,
+   "kind": "clip",
+   "clip": "DJI_20250525054110_0216_D",
+   "rec_in": 1520,
+   "frames": 80,
+   "head": 6,
+   "tail": 6,
+   "render_in": 23.967,
+   "speed": [
+    1,
+    1
+   ],
+   "fx": 0.5,
+   "src_in": 24.167,
+   "src_out": 26.833,
+   "transition": "dissolve",
+   "audio": "ambient",
+   "note": "cinematic glide",
+   "pops": [],
+   "wb": [
+    1.0,
+    1.0
+   ]
+  },
+  {
+   "n": 46,
+   "act": 3,
+   "kind": "clip",
+   "clip": "DJI_20250525054441_0217_D",
+   "rec_in": 1600,
+   "frames": 80,
+   "head": 6,
+   "tail": 6,
+   "render_in": 28.467,
+   "speed": [
+    1,
+    1
+   ],
+   "fx": 0.5,
+   "src_in": 28.667,
+   "src_out": 31.333,
+   "transition": "dissolve",
+   "audio": "ambient",
+   "note": "cinematic glide",
+   "pops": [],
+   "wb": [
+    1.0,
+    1.0
+   ]
+  },
+  {
+   "n": 47,
+   "act": 3,
+   "kind": "clip",
+   "clip": "DJI_20250525054706_0218_D",
+   "rec_in": 1680,
+   "frames": 80,
+   "head": 6,
+   "tail": 6,
+   "render_in": 46.467,
+   "speed": [
+    1,
+    1
+   ],
+   "fx": 0.5,
+   "src_in": 46.667,
+   "src_out": 49.333,
+   "transition": "dissolve",
+   "audio": "ambient",
+   "note": "cinematic glide",
+   "pops": [],
+   "wb": [
+    1.0,
+    1.0
+   ]
+  },
+  {
+   "n": 48,
+   "act": 3,
+   "kind": "clip",
+   "clip": "DJI_20250525055008_0219_D",
+   "rec_in": 1760,
+   "frames": 80,
+   "head": 6,
+   "tail": 6,
+   "render_in": 33.467,
+   "speed": [
+    1,
+    1
+   ],
+   "fx": 0.5,
+   "src_in": 33.667,
+   "src_out": 36.333,
+   "transition": "dissolve",
+   "audio": "ambient",
+   "note": "cinematic glide",
+   "pops": [],
+   "wb": [
+    1.0,
+    1.0
+   ]
+  },
+  {
+   "n": 49,
+   "act": 3,
+   "kind": "clip",
+   "clip": "DJI_20250525055414_0220_D",
+   "rec_in": 1840,
+   "frames": 80,
+   "head": 6,
+   "tail": 6,
+   "render_in": 6.4,
+   "speed": [
+    1,
+    1
+   ],
+   "fx": 0.5,
+   "src_in": 6.6,
+   "src_out": 9.267,
+   "transition": "dissolve",
+   "audio": "ambient",
+   "note": "cinematic glide",
+   "pops": [],
+   "wb": [
+    1.0,
+    1.0
+   ]
+  },
+  {
+   "n": 50,
+   "act": 3,
+   "kind": "split",
+   "clip": "DJI_20250525055414_0220_D",
+   "rec_in": 1920,
+   "frames": 160,
+   "head": 6,
+   "tail": 6,
+   "render_in": 20.133,
+   "speed": [
+    1,
+    1
+   ],
+   "fx": 0.5,
+   "src_in": 20.333,
+   "src_out": 25.667,
+   "transition": "dissolve",
+   "audio": "none",
+   "note": "before/after split: 0201 vs 0220",
+   "pops": [],
+   "before": {
+    "clip": "DJI_20250523114036_0201_D",
+    "src_in": 3.592,
+    "fx": 0.5
+   },
+   "wb": [
+    1.0,
+    1.0
+   ]
+  },
+  {
+   "n": 51,
+   "act": 3,
+   "kind": "clip",
+   "clip": "DJI_20250525055414_0220_D",
+   "rec_in": 2080,
+   "frames": 80,
+   "head": 6,
+   "tail": 0,
+   "render_in": 36.633,
+   "speed": [
+    1,
+    1
+   ],
+   "fx": 0.5,
+   "src_in": 36.833,
+   "src_out": 39.5,
+   "transition": "dissolve",
+   "audio": "ambient",
+   "note": "outro hero shot, fade to black",
+   "pops": [],
+   "wb": [
+    1.0,
+    1.0
+   ]
+  }
+ ]
+}

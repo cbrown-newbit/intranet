@@ -1,0 +1,355 @@
+{
+ "source": "Google Drive folder 1uZVv47gs7kGy0SnRs5I-trlSi4XyjXB9 (metadata only; durations = modifiedTime - filename start, UTC-4)",
+ "clips": [
+  {
+   "stem": "DJI_20250523112544_0195_D",
+   "start": "2025-05-23T11:25:44",
+   "num": "0195",
+   "lrf": {
+    "drive_id": "13EVGyZYy2pfMUqvxT4fA8y4CHS_8DboL",
+    "bytes": 15855217
+   },
+   "duration": 19.0,
+   "mp4": {
+    "drive_id": "13DmI-tuJwEXS8vwsuTIRG_3XOiAQ1Cxr",
+    "bytes": 112776971
+   }
+  },
+  {
+   "stem": "DJI_20250523112633_0196_D",
+   "start": "2025-05-23T11:26:33",
+   "num": "0196",
+   "lrf": {
+    "drive_id": "139xPCf3O3ZDvq9tGlAJ3lLJlC5VyTK9t",
+    "bytes": 12591308
+   },
+   "duration": 15.0,
+   "mp4": {
+    "drive_id": "138g8911-bDRLuePAbnCavCABX6aby07D",
+    "bytes": 90974920
+   }
+  },
+  {
+   "stem": "DJI_20250523112705_0197_D",
+   "start": "2025-05-23T11:27:05",
+   "num": "0197",
+   "lrf": {
+    "drive_id": "136i5LfANR5kh5Fp3cXOrW0XkYlxVSEsH",
+    "bytes": 11729814
+   },
+   "duration": 14.0,
+   "mp4": {
+    "drive_id": "12zn22qYd05cdpihMsi6CY7-CFcM5gmPD",
+    "bytes": 88197993
+   }
+  },
+  {
+   "stem": "DJI_20250523113323_0198_D",
+   "start": "2025-05-23T11:33:23",
+   "num": "0198",
+   "lrf": {
+    "drive_id": "12qLfiWjP5iAl8IqmaexLXSVbGE3YY-T6",
+    "bytes": 12307381
+   },
+   "duration": 15.0,
+   "mp4": {
+    "drive_id": "12iTjWXArouqTtNiafaFl1gxxXkkvY-Mk",
+    "bytes": 90640861
+   }
+  },
+  {
+   "stem": "DJI_20250523113516_0199_D",
+   "start": "2025-05-23T11:35:16",
+   "num": "0199",
+   "lrf": {
+    "drive_id": "12i7IivstdZXwLPQwRwDA_76uZ-dBNPXS",
+    "bytes": 36028199
+   },
+   "duration": 44.0,
+   "mp4": {
+    "drive_id": "12c7Icfob8ZUDPqfsSf9sJNir2qEMRajF",
+    "bytes": 276983425
+   }
+  },
+  {
+   "stem": "DJI_20250523113723_0200_D",
+   "start": "2025-05-23T11:37:23",
+   "num": "0200",
+   "lrf": {
+    "drive_id": "12WQnj2fEpSXkP97CFnkGG_suXp1ZTDaX",
+    "bytes": 35864233
+   },
+   "duration": 44.0,
+   "mp4": {
+    "drive_id": "12Tb1ABiDSEbIQwZvjZAdkzB6BeJAcEJM",
+    "bytes": 280166930
+   }
+  },
+  {
+   "stem": "DJI_20250523114036_0201_D",
+   "start": "2025-05-23T11:40:36",
+   "num": "0201",
+   "lrf": {
+    "drive_id": "12IJv3MVr0gwGbce2oasVbsS4T5p1S5Zq",
+    "bytes": 32205498
+   },
+   "duration": 37.0,
+   "mp4": {
+    "drive_id": "12HNTzt3qVv3BhJH3MCGoAdC3NuOsoksP",
+    "bytes": 239745751
+   }
+  },
+  {
+   "stem": "DJI_20250523114158_0202_D",
+   "start": "2025-05-23T11:41:58",
+   "num": "0202",
+   "lrf": {
+    "drive_id": "12FRB7vJmrP6UA2pSaUEjjHr887aJzZfX",
+    "bytes": 36534726
+   },
+   "duration": 41.0,
+   "mp4": {
+    "drive_id": "12C3njofHxKqB9oDm10wkJg5eeE-FVM0f",
+    "bytes": 263745611
+   }
+  },
+  {
+   "stem": "DJI_20250523114425_0203_D",
+   "start": "2025-05-23T11:44:25",
+   "num": "0203",
+   "lrf": {
+    "drive_id": "124QRSZ7M5GeF1LYkM_TvSkP8Suy6ZZtr",
+    "bytes": 39240625
+   },
+   "duration": 50.0,
+   "mp4": {
+    "drive_id": "123OzmoxVqIzYN1ZDVlNFGmMf5uwOymDy",
+    "bytes": 314706290
+   }
+  },
+  {
+   "stem": "DJI_20250523195100_0209_D",
+   "start": "2025-05-23T19:51:00",
+   "num": "0209",
+   "lrf": {
+    "drive_id": "1ci_VlhmISPBghR7GUb1_MoW8oJo2xxoD",
+    "bytes": 436411382
+   },
+   "duration": 459.0,
+   "mp4": {
+    "drive_id": "1zKLvqGT70-Jf2uVbM1K2QYEOEt3HYbi3",
+    "bytes": 2975652314
+   }
+  },
+  {
+   "stem": "DJI_20250523210859_0210_D",
+   "start": "2025-05-23T21:08:59",
+   "num": "0210",
+   "lrf": {
+    "drive_id": "1zKBqK7cBK0i2WQ0_T_K41mM7fucXVz_3",
+    "bytes": 1749705943
+   },
+   "duration": 2041.0,
+   "mp4": {
+    "drive_id": "1Dj49pCAX77BC1pvzVwh2SGo62Q4m-e2X",
+    "bytes": 12503580295
+   }
+  },
+  {
+   "stem": "DJI_20250524212549_0211_D",
+   "start": "2025-05-24T21:25:49",
+   "num": "0211",
+   "lrf": {
+    "drive_id": "10jA_6kc-9LvodmBI1JmT00ummtyfa_4A",
+    "bytes": 67073690
+   },
+   "mp4": {
+    "drive_id": "10bafUYqs3QgmWyHXNzrVwJ9yOqL4401L",
+    "bytes": 526239360
+   },
+   "duration": 83.0
+  },
+  {
+   "stem": "DJI_20250524212810_0212_D",
+   "start": "2025-05-24T21:28:10",
+   "num": "0212",
+   "lrf": {
+    "drive_id": "10SUu6skcq91poZj1q-OsZoRdAZF8CSLp",
+    "bytes": 50767713
+   },
+   "duration": 58.0,
+   "mp4": {
+    "drive_id": "10QceZKD-_BKeHdRGhrDhN6w0ziSbZKe5",
+    "bytes": 378708330
+   }
+  },
+  {
+   "stem": "DJI_20250524212920_0213_D",
+   "start": "2025-05-24T21:29:20",
+   "num": "0213",
+   "lrf": {
+    "drive_id": "10KajIYQn5ugimVI93TVm3-BWG9HdnF_X",
+    "bytes": 48795435
+   },
+   "duration": 56.0,
+   "mp4": {
+    "drive_id": "10KLnHnMabJ2Yvfn9e2exCPVo3labklWB",
+    "bytes": 360368623
+   }
+  },
+  {
+   "stem": "DJI_20250524213249_0214_D",
+   "start": "2025-05-24T21:32:49",
+   "num": "0214",
+   "lrf": {
+    "drive_id": "105hQo0DolPeoYe7QBeUlC3h0cN8mWWvv",
+    "bytes": 57196003
+   },
+   "duration": 70.0,
+   "mp4": {
+    "drive_id": "101pAO4veZmQGJAuixNbSn52wF5m5iBxL",
+    "bytes": 441074584
+   }
+  },
+  {
+   "stem": "DJI_20250524213452_0215_D",
+   "start": "2025-05-24T21:34:52",
+   "num": "0215",
+   "lrf": {
+    "drive_id": "1-oY20BFY9Ah2v-T8wUSGsMabSbNmcp-P",
+    "bytes": 51130199
+   },
+   "duration": 62.0,
+   "mp4": {
+    "drive_id": "1-nFrpUwD9qpIKIXk-VB3OSIKUiitNtgT",
+    "bytes": 385311425
+   }
+  },
+  {
+   "stem": "DJI_20250524213740_0216_D",
+   "start": "2025-05-24T21:37:40",
+   "num": "0216",
+   "lrf": {
+    "drive_id": "1-cjc3LKbKRGUFqP1gnG95tUD5XqHMna1",
+    "bytes": 59794850
+   },
+   "duration": 73.0,
+   "mp4": {
+    "drive_id": "1-_N43Sb1-4JVaJCvwZEcdDo6yhmgGWPD",
+    "bytes": 458716106
+   }
+  },
+  {
+   "stem": "DJI_20250525052358_0213_D",
+   "start": "2025-05-25T05:23:58",
+   "num": "0213",
+   "mp4": {
+    "drive_id": "1LsiKWQf5jLLe_tVm7LbSYSZS-IdEGai3",
+    "bytes": 217722036
+   },
+   "duration": 34.0,
+   "lrf": {
+    "drive_id": "1Yav5SqFxc9-58lY_w9lOeNAjfLR1qPiF",
+    "bytes": 29079448
+   }
+  },
+  {
+   "stem": "DJI_20250525053613_0214_D",
+   "start": "2025-05-25T05:36:13",
+   "num": "0214",
+   "mp4": {
+    "drive_id": "1b_Ncw5q8EjfxWPbJWq0eaSMozOK_HiKh",
+    "bytes": 312187974
+   },
+   "duration": 51.0,
+   "lrf": {
+    "drive_id": "1v9npmaAzNsptyHdh2vf0l2W7cZTxMpZn",
+    "bytes": 42139427
+   }
+  },
+  {
+   "stem": "DJI_20250525053928_0215_D",
+   "start": "2025-05-25T05:39:28",
+   "num": "0215",
+   "lrf": {
+    "drive_id": "1LZMehxgGTaYCaK0txsdCy2Q265bglwJv",
+    "bytes": 36669607
+   },
+   "duration": 41.0,
+   "mp4": {
+    "drive_id": "18vfLC0cDOuZcsP8GRm55il4flwZ2ZcZe",
+    "bytes": 267574447
+   }
+  },
+  {
+   "stem": "DJI_20250525054110_0216_D",
+   "start": "2025-05-25T05:41:10",
+   "num": "0216",
+   "lrf": {
+    "drive_id": "1ABIhNcBQ-Xr_s1MUZsT2TEmZCPUGiNlr",
+    "bytes": 45099681
+   },
+   "duration": 51.0,
+   "mp4": {
+    "drive_id": "14v3dXBEZMtCrnD2f31a2GNjaJ3pyg3qB",
+    "bytes": 329687067
+   }
+  },
+  {
+   "stem": "DJI_20250525054441_0217_D",
+   "start": "2025-05-25T05:44:41",
+   "num": "0217",
+   "lrf": {
+    "drive_id": "1c0SVPXmcs9Ow_ttaHgCwcyLdo7emgA52",
+    "bytes": 50009909
+   },
+   "duration": 60.0,
+   "mp4": {
+    "drive_id": "18pAA2xZKeXO5fPumCJnRkUEQvtg3yUiJ",
+    "bytes": 379369524
+   }
+  },
+  {
+   "stem": "DJI_20250525054706_0218_D",
+   "start": "2025-05-25T05:47:06",
+   "num": "0218",
+   "lrf": {
+    "drive_id": "1ZRfjHDKMOsSuNIfey9k19ePHngKbxviR",
+    "bytes": 80933337
+   },
+   "duration": 96.0,
+   "mp4": {
+    "drive_id": "16dEfcp0a0eZsAVyi_4HYeCia7HWV-TCy",
+    "bytes": 637605764
+   }
+  },
+  {
+   "stem": "DJI_20250525055008_0219_D",
+   "start": "2025-05-25T05:50:08",
+   "num": "0219",
+   "lrf": {
+    "drive_id": "1nGomY__yxuHK8qOd2x5hXWn5E2sMgb_z",
+    "bytes": 60017395
+   },
+   "duration": 70.0,
+   "mp4": {
+    "drive_id": "1_EY60ePLADFLuY0TdmATHwLyhmGHKayU",
+    "bytes": 445132684
+   }
+  },
+  {
+   "stem": "DJI_20250525055414_0220_D",
+   "start": "2025-05-25T05:54:14",
+   "num": "0220",
+   "lrf": {
+    "drive_id": "1l6tahxBkcHP3Opyw2xL3Vhti9_Ai6mi5",
+    "bytes": 174122820
+   },
+   "duration": 197.0,
+   "mp4": {
+    "drive_id": "1zzSCCBMrzj3znEN5skRbEyIQc9TOyrGu",
+    "bytes": 1335386511
+   }
+  }
+ ]
+}
