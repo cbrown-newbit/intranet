@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="claude:viewport-fit-sides" content="cover">
+<title>Beast S2 Prop Ops Hub</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;600&display=swap">
+<script src="https://cdn.tailwindcss.com/3.4.17"></script>
+<script>
+window.tailwind = window.tailwind || {};
+tailwind.config = { theme: { extend: { fontFamily: {
+  display: ['"Barlow Condensed"', '"Arial Narrow"', 'Impact', 'sans-serif'],
+  sans: ['Inter', 'system-ui', '-apple-system', 'Segoe UI', 'sans-serif'],
+  mono: ['"JetBrains Mono"', 'ui-monospace', 'SFMono-Regular', 'Menlo', 'monospace']
+}}}};
+</script>
+<style>
+/* Layout: call-sheet header under a strip of hazard tape, sticky metrics slate, then one tabbed
+   workbench per scenario: input on the left, the step timeline in the middle, output on the right. */
+:root {
+  color-scheme: dark;
+  --bg: #0f172a;        /* slate-900 stage floor */
+  --panel: #131c31;     /* raised flat */
+  --line: #293548;      /* seams */
+  --ink: #e2e8f0;
+  --muted: #94a3b8;
+  --tape: #fbbf24;      /* amber gaffer / hazard tape */
+  --go: #34d399;        /* emerald status */
+  --stop: #f87171;      /* latency red */
+  --gate: #facc15;      /* gold approval gate */
+}
+html, body { height: 100%; }
+body {
+  background: var(--bg); color: var(--ink);
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 10; background: var(--bg); }
+.tape { height: 10px; background: repeating-linear-gradient(-45deg, var(--tape) 0 14px, #0b1120 14px 28px); }
+.panel { background: var(--panel); border: 1px solid var(--line); }
+.label { font-family: "JetBrains Mono", ui-monospace, monospace; font-size: 10.5px; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); }
+.num { font-variant-numeric: tabular-nums; }
+h1, h2, h3 { text-wrap: balance; }
+:focus-visible { outline: 2px solid var(--tape); outline-offset: 2px; }
+button:disabled { opacity: .4; cursor: not-allowed; }
+@keyframes pop { from { transform: scale(.6); opacity: .3 } to { transform: scale(1); opacity: 1 } }
+@keyframes ring { 0% { box-shadow: 0 0 0 0 rgba(250,204,21,.55) } 100% { box-shadow: 0 0 0 10px rgba(250,204,21,0) } }
+@keyframes spin { to { transform: rotate(360deg) } }
+@keyframes slide { from { transform: translateY(6px); opacity: .2 } to { transform: none; opacity: 1 } }
+.pop { animation: pop .35s ease-out; }
+.ring { animation: ring 1.4s ease-out infinite; }
+.spin { animation: spin .7s linear infinite; }
+.fresh { animation: slide .35s ease-out; }
+.stamp { transform: rotate(-4deg); border: 2px solid var(--gate); color: var(--gate); font-family: "Barlow Condensed", sans-serif; font-weight: 700; letter-spacing: .08em; }
+.scrawl { background: #1a2338 repeating-linear-gradient(transparent 0 23px, #2a3650 23px 24px); line-height: 24px; }
+dialog::backdrop { background: rgba(2,6,23,.75); }
+@media (prefers-reduced-motion: reduce) { .pop, .ring, .spin, .fresh { animation: none; } }
+</style>
+</head>
+<body class="font-sans text-sm antialiased">
+<div class="mx-auto max-w-7xl pb-10">
+
+  <div class="tape -mx-4 sm:mx-0" aria-hidden="true"></div>
+
+  <header class="flex flex-col gap-4 py-5 lg:flex-row lg:items-end lg:justify-between">
+    <div class="min-w-0">
+      <p class="label">Prop Dept &middot; Demo simulator &middot; Mock prop data</p>
+      <h1 class="mt-1 font-display text-3xl font-bold uppercase leading-none tracking-wide text-slate-50 sm:text-4xl">
+        The Beast in Me S2 <span class="text-amber-400">|</span> Prop Department Autonomous Operations Hub
+      </h1>
+      <p class="mt-2 text-slate-400">Assistant Prop Master &amp; Shopper Workflow Simulator</p>
+    </div>
+
+    <div class="shrink-0">
+      <p class="label mb-1.5" id="modeLabel">Workflow mode</p>
+      <div class="panel inline-flex flex-wrap items-center gap-3 rounded-md p-2">
+        <button type="button" data-mode="manual" class="modeTxt rounded px-2 py-1 text-left text-xs font-semibold leading-tight">Manual Chaos<br>&amp; Shopper Drag</button>
+        <button type="button" id="modeSwitch" role="switch" aria-checked="true" aria-labelledby="modeLabel"
+          class="relative h-8 w-16 shrink-0 rounded-full border border-slate-600 bg-slate-800 transition-colors">
+          <span id="modeKnob" class="absolute left-1 top-1 h-[22px] w-[22px] rounded-full transition-all duration-200"></span>
+        </button>
+        <button type="button" data-mode="ai" class="modeTxt rounded px-2 py-1 text-left text-xs font-semibold leading-tight">AI-Augmented<br>Prop Operations</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Live production metrics -->
+  <section aria-label="Live production metrics" class="panel z-20 rounded-md lg:sticky" style="top: env(safe-area-inset-top, 0px)">
+    <div class="grid divide-y divide-slate-700/70 sm:grid-cols-3 sm:divide-x sm:divide-y-0">
+      <div class="p-4">
+        <p class="label">Prep hours saved per episode</p>
+        <div class="mt-1 flex items-baseline gap-2">
+          <span id="mHours" class="num font-display text-4xl font-bold leading-none">0.0</span>
+          <span class="text-slate-400">hrs</span>
+          <span class="label ml-auto">Target 15+</span>
+        </div>
+        <div class="mt-2 h-1.5 overflow-hidden rounded-full bg-slate-800" role="progressbar" aria-label="Progress to 15 hour target" aria-valuemin="0" aria-valuemax="15" id="mBarWrap">
+          <div id="mBar" class="h-full rounded-full transition-all duration-500" style="width:0%"></div>
+        </div>
+        <p id="mHoursSub" class="mt-1.5 text-xs text-slate-400"></p>
+      </div>
+      <div class="p-4">
+        <p class="label">Clearance &amp; sourcing lead time</p>
+        <div class="mt-1 flex items-baseline gap-2">
+          <span id="mLead" class="num font-display text-4xl font-bold leading-none">4.0</span>
+          <span class="text-slate-400">days, ask to camera-ready</span>
+        </div>
+        <p id="mLeadSub" class="mt-3 text-xs text-slate-400"></p>
+      </div>
+      <div class="p-4">
+        <p class="label">Emergency on-set prop flags avoided</p>
+        <div class="mt-1 flex items-baseline gap-2">
+          <span id="mFlags" class="num font-display text-4xl font-bold leading-none">0</span>
+          <span class="text-slate-400">this episode</span>
+        </div>
+        <p id="mFlagsSub" class="mt-3 text-xs text-slate-400"></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Scenario tabs -->
+  <div role="tablist" aria-label="Scenarios" id="tabs" class="mt-6 flex gap-1 overflow-x-auto border-b border-slate-700"></div>
+
+  <section id="panel" role="tabpanel" class="panel rounded-b-md border-t-0 p-4 sm:p-5">
+    <div class="flex flex-col gap-4 xl:flex-row xl:items-start xl:justify-between">
+      <div class="min-w-0">
+        <h2 id="scTitle" class="font-display text-2xl font-semibold uppercase tracking-wide text-slate-50"></h2>
+        <p id="scFlow" class="mt-1 max-w-[70ch] text-slate-400"></p>
+        <div id="scTags" class="mt-3 flex flex-wrap gap-1.5"></div>
+      </div>
+      <div class="flex shrink-0 flex-col gap-2">
+        <div class="flex flex-wrap gap-2">
+          <button type="button" id="btnStep" class="rounded bg-amber-400 px-3.5 py-2 font-semibold text-slate-900 hover:bg-amber-300">Simulate Step</button>
+          <button type="button" id="btnAuto" class="rounded border border-slate-600 px-3.5 py-2 font-medium text-slate-200 hover:border-slate-400">Auto-run</button>
+          <button type="button" id="btnSheet" class="rounded border border-slate-600 px-3.5 py-2 font-medium text-slate-200 hover:border-slate-400">Inspect Prop Run Sheet</button>
+          <button type="button" id="btnGate" class="rounded border-2 border-yellow-400 px-3.5 py-2 font-semibold text-yellow-300 hover:bg-yellow-400/10"></button>
+          <button type="button" id="btnReset" class="rounded px-2 py-2 text-slate-400 underline-offset-4 hover:text-slate-200 hover:underline">Reset</button>
+        </div>
+        <p id="status" aria-live="polite" class="min-h-[1.25rem] text-xs text-slate-400"></p>
+      </div>
+    </div>
+
+    <div class="mt-5 grid gap-4 lg:grid-cols-12">
+      <div class="min-w-0 lg:col-span-3">
+        <p class="label mb-2">Input</p>
+        <div id="input"></div>
+      </div>
+      <div class="min-w-0 lg:col-span-4">
+        <p class="label mb-2" id="tlLabel">Workflow timeline</p>
+        <ol id="timeline" class="rounded-md border border-slate-700/70 bg-slate-900/60 p-4"></ol>
+      </div>
+      <div class="min-w-0 lg:col-span-5">
+        <p class="label mb-2" id="outLabel">Output</p>
+        <div id="output"></div>
+      </div>
+    </div>
+  </section>
+
+  <p class="mt-4 text-xs text-slate-500">Demonstration only. Every item, price, hold, clearance status and metric on this page is mock data, and nothing is sent to vendors or crew.</p>
+</div>
+
+<dialog id="sheet" class="w-[min(56rem,calc(100vw-2rem))] rounded-md border border-slate-600 bg-slate-900 p-0 text-slate-200">
+  <div class="tape" aria-hidden="true"></div>
+  <div class="p-5">
+    <div class="flex items-start justify-between gap-4">
+      <div class="min-w-0">
+        <p class="label" id="sheetKicker"></p>
+        <h3 id="sheetTitle" class="font-display text-2xl font-semibold uppercase tracking-wide text-slate-50"></h3>
+      </div>
+      <button type="button" id="sheetClose" class="rounded border border-slate-600 px-3 py-1.5 hover:border-slate-400">Close</button>
+    </div>
+    <div id="sheetBody" class="mt-4"></div>
+  </div>
+</dialog>
+
+<script>
+/* ---------- mock data ---------- */
+const DEPT = { 'Set Dressing': '#38bdf8', 'Sound': '#c084fc', 'Grips': '#fb923c', 'Transport': '#22d3ee', 'HPR Clearance': '#fb7185' };
+const tag = n => `<span class="inline-flex items-center gap-1.5 whitespace-nowrap rounded-sm border border-slate-600 bg-slate-800/70 px-1.5 py-0.5 font-mono text-[10.5px] uppercase tracking-wider text-slate-200"><span class="h-1.5 w-1.5 rounded-full" style="background:${DEPT[n]}"></span>${n}</span>`;
+
+const SC = {
+  a: {
+    tab: 'A', name: 'Walkthrough Audio to Sourcing Route',
+    flow: 'Raw Plaud walkthrough audio becomes a dispatch split across the Target retail run, specialty prop house rentals (Eclectic Encore / Gimmie) and truck pulls from the Hendon Dr lot.',
+    tags: ['Set Dressing', 'Sound', 'Grips'],
+    sheetName: 'Ep 204 Prop Run Sheet',
+    ai: [
+      { t: 'Transcribe Plaud walkthrough', d: '47 min of audio transcribed with speaker labels and timestamps.', who: 'Transcription agent', lat: '2 min', h: 1.2 },
+      { t: 'Extract prop asks', d: '14 asks pulled from the transcript. 3 duplicates merged against the Ep 204 breakdown.', who: 'Breakdown agent', lat: '40 sec', h: 1.5 },
+      { t: 'Route to dispatch lanes', d: 'Each ask sorted into retail, rental or truck pull. Quiet umbrellas tagged for Sound before anything is bought.', who: 'Routing agent', lat: '15 sec', h: 1.0, f: 1, tags: ['Sound'] },
+      { t: 'Check Hendon Dr truck inventory', d: '8 black umbrellas found on shelf C-3. Removed from the Target list, saving $96 and a re-buy.', who: 'Inventory agent', lat: '10 sec', h: 1.3, f: 1 },
+      { t: 'Chanta confirms the run', d: 'Run order, budget and pickup windows wait for a human yes.', who: 'Chanta', gate: 'Confirm Run (Chanta)', gateShort: "Chanta's run confirmation" },
+      { t: 'Dispatch run sheet and holds', d: 'Run sheet to the shopper, hold requests drafted for Eclectic Encore and Gimmie, pull list to the truck.', who: 'Dispatch agent', lat: '20 sec', h: 1.0, tags: ['Set Dressing'] }
+    ],
+    manual: [
+      { t: 'Re-listen to the recording at home', d: 'Nobody transcribed the walkthrough, so the whole 47 minutes gets replayed after wrap.', who: 'Chanta', lat: '+1h 10m', sev: 'amber', lost: 1.2 },
+      { t: 'Notes go out by group text', d: 'Asks end up scattered across three threads. The phone cases only exist in one of them.', who: 'Chanta', lat: '+35m', sev: 'amber', lost: 0.6 },
+      { t: 'Shopper guesses buy vs. rent', d: 'Umbrellas bought at Target. Eight were already sitting on the truck.', who: 'Shopper', lat: '$96 re-buy', sev: 'red', lost: 1.0 },
+      { t: 'Prop house call after hours', d: 'Eclectic Encore closed at 5. Voicemail left about the briefcase, hold missed.', who: 'Shopper', lat: '+1 day', sev: 'red', lost: 0.8, delay: 1 },
+      { t: 'Rushed morning run before call', d: 'At the store doors at 5:40a for a 7:00a call.', who: 'Chanta', lat: '5:40a run', sev: 'red', lost: 1.5 },
+      { t: 'On set: wrong umbrellas', d: 'Sound flags the retail umbrellas as too loud in rain. The quiet ones never got pulled.', who: 'On-set props', lat: 'Set flag', sev: 'red', lost: 0.9, hit: 1, tags: ['Sound'] }
+    ],
+    thread: [
+      { at: 1, who: 'Chanta', th: 'Props main', m: 'listening back now. did anyone write down what he said about the umbrellas??' },
+      { at: 2, who: 'Shopper', th: 'Shoppers', m: 'I have kitchen stuff + cups. who has the briefcase?' },
+      { at: 2, who: 'Jill', th: 'Props main', m: 'wait which thread are the phone cases in' },
+      { at: 3, who: 'Shopper', th: 'Shoppers', m: 'grabbed 8 umbrellas at Target, $96, receipt in my bag' },
+      { at: 4, who: 'Shopper', th: 'Shoppers', m: 'Eclectic closed at 5. left a voicemail re: the briefcase' },
+      { at: 5, who: 'Chanta', th: 'Props main', m: "5:40 and I'm at Target waiting for doors. call is 7" },
+      { at: 6, who: 'On-set', th: 'Props main', m: 'Sound says these umbrellas are way too loud in the rain. do we have the quiet ones??', flag: 'Missed: Sound note from the walkthrough never reached the list' }
+    ],
+    scrawl: [
+      { at: 1, x: 'kitchen: paper towels, soap, fruit bowl?? (greek?)' },
+      { at: 1, x: 'phones x2 + cases (how many?)' },
+      { at: 2, x: 'briefcase, lamp: who is calling Eclectic' },
+      { at: 3, x: 'umbrellas x8: BOUGHT', strike: true },
+      { at: 4, x: 'briefcase: voicemail, no hold' },
+      { at: 5, x: 'cups, legal pads: AM run' },
+      { at: 6, x: 'QUIET umbrellas??? ask truck' }
+    ]
+  },
+  b: {
+    tab: 'B', name: 'Hero Lookbook & Clearance Scout',
+    flow: "Jill's sourcing request becomes a four-up digital option card for each hero prop, with a clearance check on every option before it reaches the scout.",
+    tags: ['HPR Clearance', 'Transport', 'Set Dressing'],
+    sheetName: 'Hero Options Hold Sheet',
+    ai: [
+      { t: "Parse Jill's request", d: 'Four hero props split into specs: period, finish, quantity, multiples and the shoot day each is needed.', who: 'Intake agent', lat: '5 sec', h: 0.5 },
+      { t: 'Search vendors and the truck', d: 'Prop houses, retail stock, picture car listings and Hendon Dr inventory searched for every spec.', who: 'Sourcing agent', lat: '3 min', h: 2.0, tags: ['Transport'] },
+      { t: 'Assemble four-up option cards', d: 'Four options per prop on one card with source, price and availability side by side.', who: 'Lookbook agent', lat: '30 sec', h: 1.5 },
+      { t: 'Run clearance pre-check', d: 'Logos, plate numbers and screen UI checked against HPR notes. Risky options blocked before anyone falls for them.', who: 'Clearance agent', lat: '1 min', h: 1.0, f: 2, tags: ['HPR Clearance'] },
+      { t: 'Jill approves options for scout', d: 'Pick the options worth showing on the scout. Blocked options cannot be approved.', who: 'Jill', gate: 'Approve Options for Scout', gateShort: "Jill's approval" },
+      { t: 'Publish lookbook and place holds', d: 'Approved options go to the scout lookbook and soft holds go out to the vendors.', who: 'Dispatch agent', lat: '20 sec', h: 0.5 }
+    ],
+    manual: [
+      { t: 'Request buried in the thread', d: "Jill's list lands between a lunch order and a parking update.", who: 'Jill', lat: '+3h', sev: 'amber', lost: 0.5 },
+      { t: 'Screenshots sent piecemeal', d: 'Eleven photos over an afternoon. No prices, no vendor names, no availability.', who: 'Shopper', lat: '+4h', sev: 'amber', lost: 2.0 },
+      { t: '"Which one was the Gimmie one?"', d: 'Options get re-sent and re-labelled from memory.', who: 'Jill', lat: '+1 day', sev: 'amber', lost: 1.0, delay: 1 },
+      { t: 'Clearance not checked until the scout', d: "The favourite briefcase has a maker's stamp on the flap. Nobody asked HPR.", who: 'Shopper', lat: 'No check', sev: 'red', lost: 0.5, tags: ['HPR Clearance'] },
+      { t: 'Re-shop the night before', d: 'Replacement options chased after stores and prop houses have closed.', who: 'Chanta', lat: '+12h', sev: 'red', lost: 1.5, delay: 0.5 },
+      { t: 'On set: option pulled by HPR', d: 'The plates carry a number that was never cleared. Scene waits on a swap.', who: 'On-set props', lat: 'Set flag', sev: 'red', lost: 1.0, hit: 1, tags: ['HPR Clearance'] }
+    ],
+    thread: [
+      { at: 1, who: 'Jill', th: 'Props main', m: 'need opts for car interior boards, 91 MA plates, aged briefcase, clear phone cases. scout is thurs' },
+      { at: 2, who: 'Shopper', th: 'Props main', m: 'IMG_4412.HEIC  IMG_4413.HEIC  IMG_4417.HEIC' },
+      { at: 2, who: 'Shopper', th: 'Props main', m: 'more coming, service is bad in here' },
+      { at: 3, who: 'Jill', th: 'Props main', m: 'which one was the Gimmie one? and how much is the tan one' },
+      { at: 4, who: 'Shopper', th: 'Props main', m: "the brown one has a little stamp on the flap but it's tiny", flag: 'Missed: no clearance check on a visible maker mark' },
+      { at: 5, who: 'Chanta', th: 'Props main', m: 'HPR says no on the stamp. re-shopping tonight' },
+      { at: 6, who: 'On-set', th: 'Props main', m: 'HPR just pulled the plates. number was never cleared. we are holding', flag: 'Missed: plate number never submitted to HPR' }
+    ],
+    scrawl: [
+      { at: 1, x: 'car boards / plates / briefcase / cases: THURS' },
+      { at: 2, x: 'photos in thread (which is which?)' },
+      { at: 3, x: 'Gimmie = brown? tan = Eclectic? $??' },
+      { at: 4, x: 'stamp on flap: ask HPR', strike: true },
+      { at: 5, x: 'RE-SHOP briefcase tonight' },
+      { at: 6, x: 'plates: need cleared number NOW' }
+    ],
+    request: '"Need options before Thursday\'s scout: 2027 car interior placement boards, 1991 MA plates, an aged briefcase with a double, and clear phone cases for the multiples. Four each if you can."',
+    items: [
+      { id: 'car', name: '2027 Car Interior Placement Boards', specs: ['2027 model year', 'Cabin + dash', 'Shoots Day 6'], opts: [
+        { n: 'EV sedan cabin, graphite', src: 'Placement partner, promo-supplied', price: '$0', av: 'Avail Day 4–9', cl: 'ok', cn: 'Agreement on file', sw: '#475569,#1e293b' },
+        { n: 'Luxury SUV cabin, tan leather', src: 'Placement partner, deal pending', price: '$0', av: 'Avail Day 6 only', cl: 'rev', cn: 'HPR review, 3 days', sw: '#b08968,#7f5539' },
+        { n: 'Rental sedan, de-badged', src: 'Picture car vendor', price: '$450 / day', av: '2 matching', cl: 'ok', cn: 'Badges greeked', sw: '#334155,#0f172a' },
+        { n: 'Hybrid crossover cabin, black', src: 'Dealer loan', price: '$0', av: 'Avail now', cl: 'flag', cn: 'Infotainment UI not cleared', sw: '#27272a,#09090b' } ] },
+      { id: 'plates', name: '1991 MA Plates', specs: ['1991 Massachusetts', 'Front + rear', '2 sets'], opts: [
+        { n: 'Fabricated replica set', src: 'Plate vendor', price: '$180 / set', av: '3 day turn', cl: 'ok', cn: 'HPR-issued number', sw: '#e2e8f0,#94a3b8' },
+        { n: 'Prop house rental set', src: 'Eclectic Encore', price: '$40 / wk', av: '1 set only', cl: 'rev', cn: 'Number needs HPR check', sw: '#cbd5e1,#64748b' },
+        { n: 'Original 1991 plates', src: 'Collector listing', price: '$65', av: 'Ships 5 days', cl: 'flag', cn: 'Real registration number', sw: '#d6d3d1,#78716c' },
+        { n: 'In-house print and form', src: 'Prop shop', price: '$30 materials', av: 'Overnight', cl: 'ok', cn: 'HPR-issued number', sw: '#f1f5f9,#a1a1aa' } ] },
+      { id: 'case', name: 'Aged Briefcase', specs: ['Leather, worn', 'Hero + double', 'Opens on camera'], opts: [
+        { n: 'Tan leather attaché', src: 'Eclectic Encore', price: '$85 / wk', av: '1 only, no double', cl: 'ok', cn: 'No visible marks', sw: '#b45309,#78350f' },
+        { n: 'Brown top-frame, brass locks', src: 'Gimmie', price: '$110 / wk', av: '2 matching', cl: 'ok', cn: 'No visible marks', sw: '#7c2d12,#431407' },
+        { n: 'New case, aged in-house', src: 'Retail + prop shop', price: '$140 x2', av: '2 day aging', cl: 'ok', cn: 'Logo plate removed', sw: '#92400e,#451a03' },
+        { n: 'Vintage oxblood case', src: 'Online listing', price: '$95', av: '1 only', cl: 'flag', cn: "Maker's stamp on flap", sw: '#7f1d1d,#450a0a' } ] },
+      { id: 'cases', name: 'Clear Phone Cases', specs: ['Clear, no logo', 'Qty 6', 'Matches hero phone'], opts: [
+        { n: 'Generic clear case', src: 'Target retail run', price: '$12 ea', av: '6 in stock', cl: 'ok', cn: 'No branding', sw: '#cbd5e1,#e2e8f0' },
+        { n: 'Clear case multipack', src: 'Online', price: '$38 / 6', av: '2 day ship', cl: 'ok', cn: 'No branding', sw: '#e2e8f0,#f8fafc' },
+        { n: 'Name-brand clear case', src: 'Electronics retail', price: '$45 ea', av: '4 in stock', cl: 'flag', cn: 'Embossed logo on back', sw: '#bae6fd,#e0f2fe' },
+        { n: 'Dummy phones with cases', src: 'Gimmie', price: '$15 / wk ea', av: '6 available', cl: 'rev', cn: 'Confirm model match', sw: '#94a3b8,#cbd5e1' } ] }
+    ]
+  },
+  c: {
+    tab: 'C', name: 'Script Revision & One-Liner Delta Audit',
+    flow: 'A collated episode revision is diffed for prop additions and cuts, then written to the Matt Torres coordinator log and synced to the truck inventory.',
+    tags: ['Set Dressing', 'Grips', 'Transport'],
+    sheetName: 'Ep 205 Truck Sync Sheet',
+    ai: [
+      { t: 'Ingest revision and diff drafts', d: 'Ep 205 Goldenrod collated pages compared line by line against Pink. 14 revised pages.', who: 'Script agent', lat: '45 sec', h: 1.5 },
+      { t: 'Detect prop adds, cuts and changes', d: '3 additions, 2 cuts, 2 changes. Sc 9 now opens the briefcase on camera.', who: 'Breakdown agent', lat: '20 sec', h: 1.0, f: 1 },
+      { t: 'Cross-check the one-liner', d: 'Sc 22 moved from Day 7 to Day 5. Breakaway glass prep pulls up two days.', who: 'Schedule agent', lat: '10 sec', h: 0.5, f: 1 },
+      { t: 'Draft coordinator log', d: 'Entries written for Matt Torres with scene, action, owner and due day.', who: 'Log agent', lat: '15 sec', h: 1.0 },
+      { t: 'Jill approves the delta', d: 'Nothing is ordered, cut or moved until the prop master signs off.', who: 'Jill', gate: 'Approve Delta (Jill)', gateShort: "Jill's approval" },
+      { t: 'Sync truck and notify departments', d: 'Hendon Dr inventory updated. Set Dressing, Grips and Transport get only the lines that touch them.', who: 'Dispatch agent', lat: '20 sec', h: 0.5, f: 1, tags: ['Set Dressing', 'Grips', 'Transport'] }
+    ],
+    manual: [
+      { t: 'Revision email lands at 9:40p', d: 'Read the next morning on the way in.', who: 'Everyone', lat: '+10h', sev: 'amber', lost: 0.5, delay: 0.5 },
+      { t: 'Page-by-page highlighter compare', d: 'Goldenrod against Pink, looking for asterisks.', who: 'Chanta', lat: '+1h 30m', sev: 'amber', lost: 1.5 },
+      { t: 'Sc 9 change missed', d: 'One revised line says the briefcase opens. It reads like the old page.', who: 'Chanta', lat: 'Missed', sev: 'red', lost: 0.3 },
+      { t: 'Log updated from memory', d: 'Matt gets a text summary. The one-liner move for Sc 22 is not in it.', who: 'Matt Torres', lat: '+2h', sev: 'amber', lost: 1.0 },
+      { t: 'Truck out of sync', d: 'Cut newspapers and takeout bags still loaded. Letter multiples and flashlight not on board.', who: 'Truck', lat: 'Stale', sev: 'red', lost: 0.7, tags: ['Transport'] },
+      { t: 'On set: briefcase opens empty', d: 'Camera sees an empty interior. Set Dressing scrambles for file folders.', who: 'On-set props', lat: 'Set flag', sev: 'red', lost: 0.5, hit: 2, tags: ['Set Dressing'] }
+    ],
+    thread: [
+      { at: 1, who: 'Production', th: 'Email', m: 'EP 205 GOLDENROD COLLATED attached. Please discard Pink.' },
+      { at: 2, who: 'Chanta', th: 'Props main', m: "going through goldenrod now. it's 14 pages" },
+      { at: 3, who: 'Chanta', th: 'Props main', m: 'ok I think it is just the letter, the glasses and the flashlight', flag: 'Missed: Sc 9 briefcase now opens on camera' },
+      { at: 4, who: 'Matt Torres', th: 'Props main', m: 'logging letter / glasses / flashlight. anything move on the one-liner?' },
+      { at: 5, who: 'Truck', th: 'Props main', m: 'still have the newspapers and takeout bags up front. want them?', flag: 'Missed: Sc 22 moved to Day 5, breakaways not ordered' },
+      { at: 6, who: 'On-set', th: 'Props main', m: 'she opens the briefcase in 9?? there is nothing in it' }
+    ],
+    scrawl: [
+      { at: 2, x: 'goldenrod: 14 pgs, check asterisks' },
+      { at: 3, x: 'ADD letter (multiples?), wine glasses, flashlight' },
+      { at: 3, x: 'cuts: newspaper?? check' },
+      { at: 4, x: 'told Matt: 3 adds' },
+      { at: 5, x: 'truck still has newspapers + bags' },
+      { at: 6, x: 'SC 9 BRIEFCASE INTERIOR!!!' }
+    ],
+    script: [
+      { sc: '9', x: 'She sets the briefcase on the desk and OPENS it.', k: 'chg', note: 'Interior now on camera' },
+      { sc: '14', x: 'He slides a HANDWRITTEN LETTER across the table.', k: 'add', note: 'Hero + 3 multiples' },
+      { sc: '18', x: 'OMITTED', k: 'cut', note: 'Newspaper cut' },
+      { sc: '22', x: 'Four WINE GLASSES hit the floor and shatter.', k: 'add', note: 'Breakaways x4 + spares' },
+      { sc: '27', x: 'OMITTED', k: 'cut', note: 'Takeout bags cut' },
+      { sc: '31', x: 'A FLASHLIGHT beam sweeps the basement.', k: 'add', note: 'Practical flashlight' },
+      { sc: '33', x: 'EXT. DRIVEWAY - NIGHT (was INT. CAR)', k: 'chg', note: 'Car interior board released' }
+    ],
+    log: [
+      { sc: '9', act: 'Dress briefcase interior: files, legal pad, pen', own: 'Set Dressing', due: 'Day 3' },
+      { sc: '14', act: 'Letter: hero + 3 multiples, handwriting sample to Jill', own: 'Props', due: 'Day 4' },
+      { sc: '18', act: 'Newspaper cut. Return printed copies to truck stock', own: 'Props', due: 'Today' },
+      { sc: '22', act: 'Breakaway wine glasses x4 + 4 spares. Now shoots Day 5', own: 'Props', due: 'Day 4' },
+      { sc: '27', act: 'Takeout bags cut. Release from Day 6 pull', own: 'Props', due: 'Today' },
+      { sc: '31', act: 'Practical flashlight, confirm output with Grips', own: 'Grips', due: 'Day 6' },
+      { sc: '33', act: 'Release car interior placement board for Day 6', own: 'Transport', due: 'Today' }
+    ],
+    sync: [
+      ['Load', 'Letter multiples x4', 'Bin A-1'], ['Load', 'Breakaway wine glasses x8', 'Crate D-2, fragile'],
+      ['Load', 'Practical flashlight + batteries', 'Bin E-4'], ['Return to stock', 'Printed newspapers x6', 'Shelf B-2'],
+      ['Return to stock', 'Takeout bags x4', 'Shelf B-5'], ['Relocate', 'Briefcase dressing kit', 'Bin A-1, with hero case'],
+      ['Release', 'Car interior placement board', 'Back to Transport']
+    ]
+  }
+};
+
+const LANES = [
+  { n: 'Target Retail Run', sub: 'Chanta, 7:30a', items: [['Paper towels, greeked wrap', '2'], ['Dish soap, greek label', '1'], ['Clear phone cases', '6'], ['Legal pads', '12'], ['To-go cups, no logo', '24'], ['Black umbrellas', '8', 'dupe']] },
+  { n: 'Specialty Prop House Rentals', sub: 'Eclectic Encore / Gimmie', items: [['Aged leather briefcase, hero + double', '2', 'Gimmie'], ['Banker desk lamp', '1', 'Eclectic Encore'], ['Rubber pistol + holster set', '1', 'Gimmie']] },
+  { n: 'Truck Pulls', sub: 'Hendon Dr lot', items: [['Evidence boxes', '10', 'Shelf C-1'], ["Banker's boxes", '6', 'Shelf C-2'], ['Quiet-fabric black umbrellas', '8', 'Shelf C-3'], ['Burner phones', '2', 'Bin E-2']] }
+];
+const TRANSCRIPT = [
+  ['03:12', 'Kitchen counter needs to feel lived in. Paper towels, dish soap, nothing branded facing camera.', 0],
+  ['07:45', 'Two more burner phones, and clear cases for the multiples. Call it six.', 0],
+  ['11:20', 'The study wants the aged briefcase and a banker lamp. Check Eclectic Encore.', 1],
+  ['15:02', 'Rubber pistol and holster for the stunt. Gimmie has the matching set.', 1],
+  ['19:38', "Evidence boxes and banker's boxes are on the truck, I think shelf C.", 2],
+  ['23:10', 'Umbrellas for the rain scene, eight black ones. Sound wants the quiet ones.', 2]
+];
+
+/* ---------- state ---------- */
+const state = { mode: 'ai', tab: 'a', idx: { ai: { a: 0, b: 0, c: 0 }, manual: { a: 0, b: 0, c: 0 } }, running: false, fresh: -1, bItem: 'car', picks: {}, token: 0 };
+SC.b.items.forEach(it => state.picks[it.id] = new Set(it.opts.map((o, i) => o.cl === 'ok' ? i : -1).filter(i => i >= 0).slice(0, 2)));
+const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const $ = id => document.getElementById(id);
+const sc = () => SC[state.tab], steps = () => sc()[state.mode], idx = () => state.idx[state.mode][state.tab];
+const atGate = () => state.mode === 'ai' && idx() < 6 && !!steps()[idx()].gate;
+
+/* ---------- metrics ---------- */
+function targets() {
+  let h = 0, f = 0, done = 0, lost = 0, hit = 0, delay = 0;
+  for (const k of ['a', 'b', 'c']) {
+    SC[k].ai.slice(0, state.idx.ai[k]).forEach(s => { h += s.h || 0; f += s.f || 0; done++; });
+    SC[k].manual.slice(0, state.idx.manual[k]).forEach(s => { lost += s.lost || 0; hit += s.hit || 0; delay += s.delay || 0; });
+  }
+  return state.mode === 'ai'
+    ? { h, lead: 4 - 3.25 * done / 18, f, sub: [h >= 15 ? 'Target cleared for the episode.' : `${(15 - h).toFixed(1)} hrs to target. Run the scenarios to bank more.`, done ? 'Down from the 4.0 day manual baseline.' : '4.0 day manual baseline. Drops as agents finish steps.', f ? 'Each one was caught in prep, before it could reach set.' : 'Flags are counted when an agent catches one in prep.'] }
+    : { h: 0, lead: 4 + delay, f: 0, sub: [lost ? `${lost.toFixed(1)} hrs lost to latency so far.` : 'Nothing is saved in the manual workflow.', delay ? `+${delay.toFixed(1)} days added by missed holds and re-shops.` : 'Baseline. Grows with every missed hold.', hit ? `${hit} flag${hit > 1 ? 's' : ''} hit set instead.` : 'None avoided. Flags surface on the day.'], bad: lost || hit };
+}
+const shown = { h: 0, lead: 4, f: 0 }; let raf;
+function paintMetrics(t) {
+  $('mHours').textContent = shown.h.toFixed(1); $('mLead').textContent = shown.lead.toFixed(1); $('mFlags').textContent = Math.round(shown.f);
+  $('mBar').style.width = Math.min(100, shown.h / 15 * 100) + '%';
+  $('mBarWrap').setAttribute('aria-valuenow', Math.min(15, shown.h).toFixed(1));
+}
+function renderMetrics() {
+  const t = targets(), from = { ...shown }, t0 = performance.now(), ai = state.mode === 'ai';
+  ['mHours', 'mFlags'].forEach(id => $(id).className = 'num font-display text-4xl font-bold leading-none ' + (ai ? 'text-emerald-400' : 'text-slate-500'));
+  $('mLead').className = 'num font-display text-4xl font-bold leading-none ' + (ai ? 'text-emerald-400' : t.lead > 4 ? 'text-red-400' : 'text-amber-400');
+  $('mBar').style.background = t.h >= 15 ? 'var(--go)' : 'var(--tape)';
+  ['mHoursSub', 'mLeadSub', 'mFlagsSub'].forEach((id, i) => { $(id).textContent = t.sub[i]; $(id).className = (i ? 'mt-3' : 'mt-1.5') + ' text-xs ' + (!ai && ((i === 0 && t.bad) || (i === 1 && t.lead > 4) || (i === 2 && t.sub[2].includes('hit'))) ? 'text-red-300' : 'text-slate-400'); });
+  cancelAnimationFrame(raf);
+  const tick = now => {
+    const p = reduced ? 1 : Math.min(1, (now - t0) / 500), e = 1 - Math.pow(1 - p, 3);
+    for (const k of ['h', 'lead', 'f']) shown[k] = from[k] + (t[k] - from[k]) * e;
+    paintMetrics(); if (p < 1) raf = requestAnimationFrame(tick);
+  };
+  raf = requestAnimationFrame(tick);
+}
+
+/* ---------- timeline ---------- */
+const ICON = { check: '<svg viewBox="0 0 16 16" class="h-3.5 w-3.5" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M3 8.5l3.2 3L13 4.5"/></svg>', x: '<svg viewBox="0 0 16 16" class="h-3.5 w-3.5" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M4 4l8 8M12 4l-8 8"/></svg>', clock: '<svg viewBox="0 0 16 16" class="h-3.5 w-3.5" fill="none" stroke="currentColor" stroke-width="2"><circle cx="8" cy="8" r="5.5"/><path d="M8 5v3.2l2 1.3"/></svg>' };
+function renderTimeline() {
+  const i = idx(), ai = state.mode === 'ai';
+  $('tlLabel').textContent = ai ? 'Agent workflow timeline' : 'Manual workflow timeline';
+  $('timeline').innerHTML = steps().map((s, n) => {
+    const done = n < i, cur = n === i, run = cur && state.running, wait = cur && ai && s.gate, last = n === 5;
+    let node = 'border-slate-600 bg-slate-800 text-slate-500', inner = `<span class="font-mono text-[11px]">${n + 1}</span>`, badge = '';
+    if (ai) {
+      if (s.gate) {
+        node = done ? 'border-yellow-400 bg-yellow-400 text-slate-900' : wait ? 'border-yellow-400 bg-yellow-400/15 text-yellow-300 ring' : 'border-yellow-400/50 bg-slate-800 text-yellow-400/70';
+        if (done) inner = ICON.check;
+        badge = `<span class="whitespace-nowrap rounded-sm border border-yellow-400 px-1.5 py-0.5 font-mono text-[10.5px] font-semibold uppercase tracking-wider ${done ? 'bg-yellow-400 text-slate-900' : 'text-yellow-300'}">${done ? 'Approved' : wait ? 'Waiting on ' + s.who : 'Human approval gate'}</span>`;
+      } else {
+        if (done) { node = 'border-emerald-400 bg-emerald-400 text-slate-900'; inner = ICON.check; }
+        else if (run) { node = 'border-emerald-400 bg-slate-800 text-emerald-400'; inner = '<span class="spin block h-3.5 w-3.5 rounded-full border-2 border-emerald-400 border-t-transparent"></span>'; }
+        else if (cur) node = 'border-emerald-400/70 bg-slate-800 text-emerald-300';
+        badge = `<span class="whitespace-nowrap rounded-sm border px-1.5 py-0.5 font-mono text-[10.5px] uppercase tracking-wider ${done ? 'border-emerald-400/60 bg-emerald-400/10 text-emerald-300' : 'border-slate-600 text-slate-400'}">${run ? 'Running' : s.lat}</span>`;
+      }
+    } else {
+      const red = s.sev === 'red';
+      if (done) { node = red ? 'border-red-400 bg-red-400 text-slate-900' : 'border-amber-400 bg-amber-400 text-slate-900'; inner = red ? ICON.x : ICON.clock; }
+      else if (run) { node = 'border-amber-400 bg-slate-800 text-amber-300'; inner = '<span class="spin block h-3.5 w-3.5 rounded-full border-2 border-amber-400 border-t-transparent"></span>'; }
+      else if (cur) node = 'border-amber-400/70 bg-slate-800 text-amber-300';
+      badge = `<span class="whitespace-nowrap rounded-sm border px-1.5 py-0.5 font-mono text-[10.5px] font-semibold uppercase tracking-wider ${!done ? 'border-slate-600 text-slate-400' : red ? 'border-red-400/70 bg-red-400/10 text-red-300' : 'border-amber-400/70 bg-amber-400/10 text-amber-300'}">${s.lat}</span>`;
+    }
+    const lineCol = done ? (ai ? (s.gate ? 'bg-yellow-400/60' : 'bg-emerald-400/60') : (s.sev === 'red' ? 'bg-red-400/50' : 'bg-amber-400/50')) : 'bg-slate-700';
+    return `<li class="relative pl-10 ${last ? '' : 'pb-5'}">
+      ${last ? '' : `<span class="absolute left-[13px] top-7 bottom-0 w-0.5 ${lineCol}" aria-hidden="true"></span>`}
+      <span class="absolute left-0 top-0 flex h-7 w-7 items-center justify-center rounded-full border-2 ${node} ${n === state.fresh ? 'pop' : ''}">${inner}</span>
+      <div class="flex flex-wrap items-start justify-between gap-x-2 gap-y-1">
+        <p class="min-w-0 font-semibold ${done || cur ? 'text-slate-100' : 'text-slate-400'}">${s.t}</p>${badge}
+      </div>
+      <p class="mt-0.5 ${done || cur ? 'text-slate-300' : 'text-slate-500'}">${s.d}</p>
+      <div class="mt-1.5 flex flex-wrap items-center gap-1.5"><span class="font-mono text-[11px] text-slate-500">${s.who}</span>${(s.tags || []).map(tag).join('')}</div>
+    </li>`;
+  }).join('');
+}
+
+/* ---------- input panels ---------- */
+function renderInput() {
+  const i = idx(), ai = state.mode === 'ai', k = state.tab; let h = '';
+  if (k === 'a') {
+    const bars = Array.from({ length: 44 }, (_, n) => 18 + Math.round(70 * Math.abs(Math.sin(n * 1.7) * Math.cos(n * 0.43))));
+    h = `<div class="rounded-md border border-slate-700/70 bg-slate-900/60 p-3">
+      <div class="flex items-center justify-between gap-2"><p class="font-semibold text-slate-100">Plaud recording</p><span class="num font-mono text-xs text-slate-400">47:12</span></div>
+      <p class="break-all font-mono text-[11px] text-slate-500">Ep204_tech_walkthrough.m4a</p>
+      <div class="mt-3 flex h-12 items-center gap-[2px]" aria-hidden="true">${bars.map((b, n) => `<span class="flex-1 rounded-sm ${ai && i >= 1 ? 'bg-emerald-400/70' : n < 14 ? 'bg-amber-400/70' : 'bg-slate-600'}" style="height:${b}%"></span>`).join('')}</div>
+      ${ai ? (i >= 1 ? `<ul class="mt-3 space-y-2">${TRANSCRIPT.map(([t, x, l]) => `<li class="fresh"><span class="num font-mono text-[11px] text-slate-500">${t}</span>
+          <p class="text-slate-300">${x}</p>${i >= 3 ? `<span class="font-mono text-[10.5px] uppercase tracking-wider text-emerald-300">&rarr; ${LANES[l].n}</span>` : ''}</li>`).join('')}</ul>`
+        : '<p class="mt-3 text-slate-400">Raw audio, not yet transcribed. Simulate a step to start.</p>')
+        : '<p class="mt-3 text-amber-200/90">Raw audio only. Nobody has time to transcribe it, so the asks live in whoever was listening.</p>'}
+    </div>`;
+  } else if (k === 'b') {
+    h = `<div class="rounded-md border border-slate-700/70 bg-slate-900/60 p-3">
+      <p class="font-semibold text-slate-100">Jill's sourcing request</p>
+      <p class="mt-2 border-l-2 border-amber-400 pl-3 text-slate-300">${SC.b.request}</p>
+      <p class="label mt-4 mb-1.5">${ai ? 'Hero props, choose one to view' : 'Hero props requested'}</p>
+      <div class="flex flex-col gap-1.5">${SC.b.items.map(it => ai
+        ? `<button type="button" data-item="${it.id}" aria-pressed="${state.bItem === it.id}" class="rounded border px-2.5 py-1.5 text-left ${state.bItem === it.id ? 'border-amber-400 bg-amber-400/10 text-amber-100' : 'border-slate-600 text-slate-300 hover:border-slate-400'}">${it.name}</button>`
+        : `<span class="rounded border border-slate-700 px-2.5 py-1.5 text-slate-400">${it.name}</span>`).join('')}</div>
+    </div>`;
+  } else {
+    const col = { add: 'border-emerald-400 text-emerald-300', cut: 'border-red-400 text-red-300', chg: 'border-amber-400 text-amber-300' }, word = { add: 'Add', cut: 'Cut', chg: 'Change' };
+    h = `<div class="rounded-md border border-slate-700/70 bg-slate-900/60 p-3">
+      <div class="flex flex-wrap items-center gap-2"><p class="font-semibold text-slate-100">Ep 205 draft revision</p></div>
+      <div class="mt-2 flex flex-wrap gap-1.5 font-mono text-[10.5px] uppercase tracking-wider">
+        <span class="rounded-sm bg-pink-300 px-1.5 py-0.5 text-slate-900">Pink</span><span class="text-slate-500">&rarr;</span>
+        <span class="rounded-sm px-1.5 py-0.5 text-slate-900" style="background:#daa520">Goldenrod</span><span class="text-slate-400">collated, 14 pages</span></div>
+      <ul class="mt-3 space-y-2 font-mono text-xs">${SC.c.script.map(l => { const lit = ai && i >= 2;
+        return `<li class="border-l-2 pl-2 ${lit ? col[l.k].split(' ')[0] : 'border-slate-700'}"><span class="text-slate-500">Sc ${l.sc}</span> <span class="text-slate-300">${l.x}</span> <span class="text-slate-500">*</span>
+          ${lit ? `<span class="fresh block ${col[l.k].split(' ')[1]}">${word[l.k]}: ${l.note}</span>` : ''}</li>`; }).join('')}</ul>
+      ${ai ? '' : '<p class="mt-3 font-sans text-amber-200/90">Seven asterisks across 14 pages. Each one is found by eye, or not at all.</p>'}
+    </div>`;
+  }
+  $('input').innerHTML = h;
+}
+
+/* ---------- output panels ---------- */
+const empty = m => `<div class="rounded-md border border-dashed border-slate-700 p-6 text-center text-slate-500">${m}</div>`;
+const CL = { ok: ['border-emerald-400/60 bg-emerald-400/10 text-emerald-300', 'Cleared'], rev: ['border-amber-400/70 bg-amber-400/10 text-amber-300', 'HPR review'], flag: ['border-red-400/70 bg-red-400/10 text-red-300', 'Blocked'] };
+
+function outManual() {
+  const i = idx(), msgs = sc().thread.filter(m => m.at <= i);
+  if (!msgs.length) return empty('The thread is quiet. Simulate a step to watch it fill up.');
+  return `<div class="space-y-2 rounded-md border border-slate-700/70 bg-slate-900/60 p-3">${msgs.map(m => `
+    <div class="${m.at === i ? 'fresh' : ''}" style="margin-left:${(m.who.length * 7) % 28}px">
+      <p class="font-mono text-[10.5px] text-slate-500">${m.who} &middot; ${m.th}</p>
+      <p class="inline-block max-w-full rounded-md rounded-tl-none bg-slate-800 px-3 py-1.5 text-slate-200">${m.m}</p>
+      ${m.flag ? `<p class="mt-1 flex items-start gap-1.5 rounded-sm border border-red-400/60 bg-red-400/10 px-2 py-1 text-xs text-red-200"><span class="mt-0.5 shrink-0">${ICON.x}</span>${m.flag}</p>` : ''}
+    </div>`).join('')}</div>`;
+}
+function outA(i) {
+  if (i < 1) return empty('Dispatch lanes appear here once the walkthrough is transcribed and routed.');
+  if (i < 3) return `<div class="fresh rounded-md border border-slate-700/70 bg-slate-900/60 p-4"><p class="font-semibold text-slate-100">${i === 1 ? 'Transcript ready' : '14 prop asks extracted'}</p>
+    <p class="mt-1 text-slate-400">${i === 1 ? '6,180 words, 3 speakers, timestamps kept so every ask links back to the moment it was said.' : '3 duplicates merged against the Ep 204 breakdown. Routing is next.'}</p></div>`;
+  const status = i >= 6 ? 'Dispatched' : i >= 5 ? 'Confirmed by Chanta' : 'Routed, awaiting confirmation';
+  return `<div class="space-y-3">${LANES.map(l => `<div class="rounded-md border border-slate-700/70 bg-slate-900/60 p-3 ${i === 3 ? 'fresh' : ''}">
+      <div class="flex flex-wrap items-baseline justify-between gap-2"><p class="font-display text-lg font-semibold uppercase tracking-wide text-slate-100">${l.n}</p><span class="font-mono text-[11px] text-slate-400">${l.sub}</span></div>
+      <ul class="mt-1.5 divide-y divide-slate-800">${l.items.map(([n, q, x]) => { const dupe = x === 'dupe' && i >= 4;
+        return `<li class="flex items-baseline justify-between gap-3 py-1"><span class="min-w-0 ${dupe ? 'text-slate-500 line-through' : 'text-slate-200'}">${n}${x && x !== 'dupe' ? ` <span class="font-mono text-[11px] text-slate-500">${x}</span>` : ''}</span>
+          ${dupe ? '<span class="shrink-0 font-mono text-[10.5px] uppercase tracking-wider text-emerald-300">On truck, removed</span>' : `<span class="num shrink-0 font-mono text-slate-400">x${q}</span>`}</li>`; }).join('')}</ul></div>`).join('')}
+    <div class="flex flex-wrap items-center gap-2"><span class="rounded-sm border px-2 py-1 font-mono text-[10.5px] uppercase tracking-wider ${i >= 5 ? 'border-emerald-400/60 bg-emerald-400/10 text-emerald-300' : 'border-yellow-400 text-yellow-300'}">${status}</span>
+      ${i >= 6 ? '<span class="text-xs text-slate-400">Hold requests drafted for Eclectic Encore and Gimmie.</span>' : ''}</div></div>`;
+}
+function outB(i) {
+  const it = SC.b.items.find(x => x.id === state.bItem), picks = state.picks[it.id], gate = i === 4;
+  if (i < 1) return empty('Option cards appear here once the request is parsed and sourced.');
+  const specs = `<div class="flex flex-wrap gap-1.5">${it.specs.map(s => `<span class="rounded-sm border border-slate-600 px-1.5 py-0.5 font-mono text-[10.5px] uppercase tracking-wider text-slate-300">${s}</span>`).join('')}</div>`;
+  if (i < 3) return `<div class="fresh rounded-md border border-slate-700/70 bg-slate-900/60 p-4"><p class="font-semibold text-slate-100">${it.name}</p><div class="mt-2">${specs}</div>
+    <p class="mt-3 text-slate-400">${i === 1 ? 'Specs parsed. Vendor search is next.' : '23 candidates found across prop houses, retail and the truck. Narrowing to four.'}</p></div>`;
+  return `<div class="rounded-md border border-slate-700/70 bg-slate-900/60 p-3">
+    <div class="flex flex-wrap items-start justify-between gap-2"><div class="min-w-0"><p class="label">Four-up option card</p><p class="font-display text-xl font-semibold uppercase tracking-wide text-slate-100">${it.name}</p></div>${specs}</div>
+    ${gate ? '<p class="mt-2 text-xs text-yellow-200">Select the options to show on the scout, then approve.</p>' : ''}
+    <div class="mt-3 grid grid-cols-2 gap-2.5">${it.opts.map((o, n) => { const on = picks.has(n), blocked = o.cl === 'flag', appr = i >= 5 && on, dim = i >= 5 && !on;
+      const body = `<div class="relative h-20 rounded-t" style="background:linear-gradient(135deg,${o.sw})"><span class="absolute left-1.5 top-1.5 rounded-sm bg-slate-900/80 px-1.5 font-display text-base font-bold text-slate-100">${'ABCD'[n]}</span>
+          ${appr ? '<span class="stamp pop absolute bottom-1.5 right-1.5 rounded-sm bg-slate-900/85 px-1.5 py-0.5 text-xs uppercase">Approved for scout</span>' : ''}
+          ${gate && !blocked ? `<span class="absolute right-1.5 top-1.5 flex h-5 w-5 items-center justify-center rounded-sm border-2 ${on ? 'border-yellow-400 bg-yellow-400 text-slate-900' : 'border-slate-200 bg-slate-900/60 text-transparent'}">${ICON.check}</span>` : ''}</div>
+        <div class="p-2 text-left"><p class="font-semibold leading-snug text-slate-100">${o.n}</p><p class="text-xs text-slate-400">${o.src}</p>
+          <p class="num mt-1 font-mono text-[11px] text-slate-300">${o.price} &middot; ${o.av}</p>
+          ${i >= 4 ? `<p class="${i === 4 ? 'fresh' : ''} mt-1.5 rounded-sm border px-1.5 py-1 text-[11px] leading-tight ${CL[o.cl][0]}"><span class="font-mono font-semibold uppercase tracking-wider">${CL[o.cl][1]}</span><br>${o.cn}</p>` : '<p class="mt-1.5 rounded-sm border border-slate-700 px-1.5 py-1 font-mono text-[10.5px] uppercase tracking-wider text-slate-500">Clearance pending</p>'}</div>`;
+      const cls = `min-w-0 overflow-hidden rounded border ${appr ? 'border-yellow-400' : gate && on ? 'border-yellow-400' : 'border-slate-700'} ${dim ? 'opacity-45' : ''} bg-slate-900 ${i === 3 ? 'fresh' : ''}`;
+      return gate ? `<button type="button" data-pick="${n}" aria-pressed="${on}" ${blocked ? 'disabled title="Blocked by clearance"' : ''} class="${cls} ${blocked ? '' : 'hover:border-yellow-300'}">${body}</button>` : `<div class="${cls}">${body}</div>`; }).join('')}</div>
+    ${i >= 6 ? `<p class="fresh mt-3 text-xs text-emerald-300">Published to the scout lookbook. Soft holds placed on ${picks.size} option${picks.size === 1 ? '' : 's'} for this prop.</p>` : ''}</div>`;
+}
+function outC(i) {
+  if (i < 2) return empty(i ? 'Drafts diffed. Prop changes are being classified.' : 'The delta audit appears here once the revision is diffed.');
+  const d = SC.c, ownTag = o => DEPT[o] ? tag(o) : `<span class="font-mono text-[10.5px] uppercase tracking-wider text-slate-400">${o}</span>`;
+  let h = `<div class="space-y-3"><div class="grid grid-cols-3 gap-2 text-center ${i === 2 ? 'fresh' : ''}">
+      ${[['3', 'Added', 'text-emerald-300 border-emerald-400/50'], ['2', 'Cut', 'text-red-300 border-red-400/50'], ['2', 'Changed', 'text-amber-300 border-amber-400/50']].map(([n, l, c]) => `<div class="rounded border bg-slate-900/60 py-2 ${c}"><p class="num font-display text-2xl font-bold leading-none">${n}</p><p class="label mt-1">${l}</p></div>`).join('')}</div>`;
+  if (i >= 3) h += `<p class="${i === 3 ? 'fresh' : ''} rounded border border-amber-400/60 bg-amber-400/10 px-3 py-2 text-amber-100"><span class="font-semibold">One-liner shift:</span> Sc 22 moved from Day 7 to Day 5. Breakaway glass order pulls up two days.</p>`;
+  if (i >= 4) h += `<div class="${i === 4 ? 'fresh' : ''} rounded-md border border-slate-700/70 bg-slate-900/60 p-3">
+      <div class="flex flex-wrap items-center justify-between gap-2"><p class="font-display text-lg font-semibold uppercase tracking-wide text-slate-100">Matt Torres Coordinator Log</p>
+        <span class="rounded-sm border px-1.5 py-0.5 font-mono text-[10.5px] uppercase tracking-wider ${i >= 5 ? 'border-yellow-400 bg-yellow-400 font-semibold text-slate-900' : 'border-yellow-400 text-yellow-300'}">${i >= 5 ? 'Approved by Jill' : 'Draft, awaiting Jill'}</span></div>
+      <ul class="mt-2 divide-y divide-slate-800">${d.log.map(r => `<li class="flex flex-wrap items-baseline gap-x-3 gap-y-1 py-1.5"><span class="num w-10 shrink-0 font-mono text-xs text-slate-500">Sc ${r.sc}</span><span class="min-w-0 flex-1 basis-40 text-slate-200">${r.act}</span>${ownTag(r.own)}<span class="num font-mono text-[11px] text-slate-400">${r.due}</span></li>`).join('')}</ul></div>`;
+  if (i >= 6) h += `<div class="fresh rounded-md border border-emerald-400/40 bg-emerald-400/5 p-3"><p class="font-display text-lg font-semibold uppercase tracking-wide text-emerald-200">Truck inventory synced, Hendon Dr lot</p>
+      <ul class="mt-1.5 divide-y divide-slate-800">${d.sync.map(([a, n, w]) => `<li class="flex flex-wrap items-baseline justify-between gap-x-3 py-1"><span class="min-w-0"><span class="font-mono text-[10.5px] uppercase tracking-wider text-emerald-300">${a}</span> <span class="text-slate-200">${n}</span></span><span class="font-mono text-[11px] text-slate-400">${w}</span></li>`).join('')}</ul></div>`;
+  return h + '</div>';
+}
+function renderOutput() {
+  const ai = state.mode === 'ai';
+  $('outLabel').textContent = ai ? { a: 'Output: dispatch lanes', b: 'Output: digital option card', c: 'Output: delta audit and sync' }[state.tab] : 'Output: the group thread';
+  $('output').innerHTML = ai ? { a: outA, b: outB, c: outC }[state.tab](idx()) : outManual();
+}
+
+/* ---------- run sheet dialog ---------- */
+function openSheet() {
+  const s = sc(), i = idx(), ai = state.mode === 'ai';
+  $('sheetKicker').textContent = (ai ? 'AI-augmented' : 'Manual') + ' workflow, step ' + i + ' of 6';
+  $('sheetTitle').textContent = s.sheetName;
+  let rows = [], body;
+  if (!ai) {
+    const lines = s.scrawl.filter(l => l.at <= i);
+    body = lines.length ? `<p class="mb-2 text-slate-400">There is no run sheet in the manual workflow. This is the legal pad.</p>
+      <div class="scrawl rounded px-4 py-0 font-mono text-[13px] text-amber-100/90">${lines.map(l => `<p class="${l.strike ? 'line-through decoration-red-400' : ''}">${l.x}</p>`).join('')}<p>&nbsp;</p></div>`
+      : empty('Nothing written down yet. Simulate a step.');
+  } else {
+    if (state.tab === 'a' && i >= 3) { const st = i >= 6 ? 'Dispatched' : i >= 5 ? 'Confirmed' : 'Routed';
+      LANES.forEach(l => l.items.forEach(([n, q, x]) => rows.push([l.n, n, 'x' + q, x === 'dupe' ? '' : (x || l.sub), x === 'dupe' && i >= 4 ? 'Removed, on truck' : st]))); }
+    if (state.tab === 'b' && i >= 3) SC.b.items.forEach(it => it.opts.forEach((o, n) => { const on = state.picks[it.id].has(n);
+      rows.push([it.name, 'ABCD'[n] + '. ' + o.n, o.price, o.src, i < 4 ? 'Option' : o.cl === 'flag' ? 'Blocked by clearance' : i >= 6 && on ? 'Hold placed' : i >= 5 ? (on ? 'Approved for scout' : 'Not selected') : CL[o.cl][1]]); }));
+    if (state.tab === 'c' && i >= 4) SC.c.sync.forEach(([a, n, w]) => rows.push([a, n, '', w, i >= 6 ? 'Synced' : i >= 5 ? 'Approved' : 'Draft']));
+    const good = /Dispatched|Confirmed|Synced|Hold placed|Approved/;
+    body = rows.length ? `<div class="overflow-x-auto"><table class="w-full min-w-[34rem] text-left"><thead><tr class="label border-b border-slate-700">${['Lane', 'Item', 'Qty / rate', 'Source / location', 'Status'].map(h => `<th class="py-2 pr-3 font-normal">${h}</th>`).join('')}</tr></thead>
+      <tbody class="divide-y divide-slate-800">${rows.map(r => `<tr>${r.map((c, n) => `<td class="py-1.5 pr-3 align-top ${n === 4 ? 'whitespace-nowrap font-mono text-[11px] uppercase tracking-wider ' + (/Blocked|Removed/.test(c) ? 'text-red-300' : good.test(c) ? 'text-emerald-300' : 'text-amber-300') : n === 1 ? 'text-slate-100' : 'num text-slate-400'}">${c}</td>`).join('')}</tr>`).join('')}</tbody></table></div>`
+      : empty('The run sheet fills in as the agents finish their steps.');
+  }
+  $('sheetBody').innerHTML = body; $('sheet').showModal();
+}
+
+/* ---------- controls ---------- */
+function renderChrome() {
+  const ai = state.mode === 'ai', s = sc(), i = idx(), done = i >= 6, gate = atGate();
+  document.querySelectorAll('.modeTxt').forEach(b => b.className = 'modeTxt rounded px-2 py-1 text-left text-xs font-semibold leading-tight ' + (b.dataset.mode === state.mode ? (ai ? 'text-emerald-300' : 'text-red-300') : 'text-slate-500 hover:text-slate-300'));
+  $('modeSwitch').setAttribute('aria-checked', ai); $('modeSwitch').setAttribute('aria-label', 'AI-Augmented Prop Operations');
+  $('modeKnob').style.left = ai ? '36px' : '4px'; $('modeKnob').style.background = ai ? 'var(--go)' : 'var(--stop)';
+  $('tabs').innerHTML = Object.entries(SC).map(([k, v]) => { const on = k === state.tab, n = state.idx[state.mode][k];
+    return `<button type="button" role="tab" id="tab-${k}" data-tab="${k}" aria-selected="${on}" aria-controls="panel" tabindex="${on ? 0 : -1}" class="flex shrink-0 items-center gap-2 rounded-t-md border border-b-0 px-3 py-2.5 text-left ${on ? 'border-slate-700 bg-[#131c31] text-slate-50' : 'border-transparent text-slate-400 hover:text-slate-200'}">
+      <span class="flex h-6 w-6 items-center justify-center rounded-sm font-display text-base font-bold ${on ? 'bg-amber-400 text-slate-900' : 'bg-slate-800 text-slate-400'}">${v.tab}</span>
+      <span class="font-medium">${v.name}</span><span class="num font-mono text-[11px] ${n >= 6 ? (ai ? 'text-emerald-400' : 'text-red-400') : 'text-slate-500'}">${n}/6</span></button>`; }).join('');
+  $('panel').setAttribute('aria-labelledby', 'tab-' + state.tab);
+  $('panel').style.borderTop = '2px solid ' + (ai ? 'var(--go)' : 'var(--stop)');
+  $('scTitle').textContent = 'Scenario ' + s.tab + ': ' + s.name; $('scFlow').textContent = s.flow; $('scTags').innerHTML = s.tags.map(tag).join('');
+  const gs = s.ai.find(x => x.gate);
+  $('btnGate').textContent = gs.gate;
+  $('btnGate').disabled = !gate || state.running || (state.tab === 'b' && ![...Object.values(state.picks)].some(p => p.size));
+  $('btnGate').classList.toggle('ring', gate && !state.running);
+  $('btnStep').disabled = done || gate || state.running; $('btnAuto').disabled = done || gate || state.running;
+  $('btnStep').textContent = done ? 'Scenario Complete' : 'Simulate Step';
+  $('status').textContent = state.running ? 'Running step ' + (i + 1) + ' of 6.'
+    : done ? (ai ? 'Complete. Every agent step is logged and one human approved the handoff.' : 'Complete. The problem reached set.')
+    : gate ? `Paused at a human approval gate. Use "${gs.gate}" to continue.`
+    : !ai ? 'Manual mode has no approval gate, so nothing stops a miss before set.'
+    : i === 0 ? 'Ready. Simulate a step or auto-run to the approval gate.' : `Step ${i} of 6 complete.`;
+}
+function render() { renderChrome(); renderMetrics(); renderTimeline(); renderInput(); renderOutput(); state.fresh = -1; }
+
+function advance() { state.idx[state.mode][state.tab]++; state.fresh = idx() - 1; state.running = false; render(); }
+function step(auto) {
+  if (state.running || idx() >= 6 || atGate()) return;
+  const tk = ++state.token; state.running = true; renderChrome(); renderTimeline();
+  setTimeout(() => { if (tk !== state.token) return; advance();
+    if (auto && idx() < 6 && !atGate()) setTimeout(() => tk === state.token && step(true), reduced ? 0 : 350); }, reduced ? 0 : 650);
+}
+function cancel() { state.token++; state.running = false; }
+
+$('btnStep').onclick = () => step(false);
+$('btnAuto').onclick = () => step(true);
+$('btnGate').onclick = () => { if (atGate()) advance(); };
+$('btnReset').onclick = () => { cancel(); state.idx[state.mode][state.tab] = 0; render(); };
+$('btnSheet').onclick = openSheet;
+$('sheetClose').onclick = () => $('sheet').close();
+$('sheet').addEventListener('click', e => { if (e.target === $('sheet')) $('sheet').close(); });
+const setMode = m => { if (m === state.mode) return; cancel(); state.mode = m; render(); };
+$('modeSwitch').onclick = () => setMode(state.mode === 'ai' ? 'manual' : 'ai');
+document.querySelectorAll('.modeTxt').forEach(b => b.onclick = () => setMode(b.dataset.mode));
+$('tabs').addEventListener('click', e => { const b = e.target.closest('[data-tab]'); if (b && b.dataset.tab !== state.tab) { cancel(); state.tab = b.dataset.tab; render(); $('tab-' + state.tab).focus(); } });
+$('tabs').addEventListener('keydown', e => { const ks = ['a', 'b', 'c'], d = e.key === 'ArrowRight' ? 1 : e.key === 'ArrowLeft' ? -1 : 0; if (!d) return;
+  cancel(); state.tab = ks[(ks.indexOf(state.tab) + d + 3) % 3]; render(); $('tab-' + state.tab).focus(); });
+$('input').addEventListener('click', e => { const b = e.target.closest('[data-item]'); if (b) { state.bItem = b.dataset.item; renderInput(); renderOutput(); document.querySelector(`[data-item="${state.bItem}"]`).focus(); } });
+$('output').addEventListener('click', e => { const b = e.target.closest('[data-pick]'); if (!b || b.disabled) return;
+  const n = +b.dataset.pick, p = state.picks[state.bItem]; p.has(n) ? p.delete(n) : p.add(n); renderOutput(); renderChrome(); document.querySelector(`[data-pick="${n}"]`).focus(); });
+
+/* Open in a working state: Scenario A already transcribed, extracted and routed. */
+state.idx.ai.a = 3;
+render();
+</script>
+</body>
+</html>
