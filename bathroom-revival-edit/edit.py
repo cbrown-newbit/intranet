@@ -25,8 +25,8 @@ SR = 48000
 TITLE, SUBTITLE = "Bathroom Revival Weekend", "Before & After"
 ACT_TITLES = {1: "The Before", 2: "The Deep Clean", 3: "The Reveal"}
 ACT_BEATS = {1: 24, 2: 40, 3: 44}            # 108 beats = 72.0 s at 90 BPM
-# Story window: Friday 11:40 AM (clip 0201) -> Sunday 5:54 AM (clip 0220).
-SINCE, UNTIL = dt.datetime(2025, 5, 23, 11, 40), dt.datetime(2025, 5, 25, 6, 0)
+# Story window: Friday 11:25 AM (clip 0195) -> Sunday 5:54 AM (clip 0220).
+SINCE, UNTIL = dt.datetime(2025, 5, 23, 11, 25), dt.datetime(2025, 5, 25, 6, 0)
 ACT2_FROM, ACT3_FROM = dt.datetime(2025, 5, 23, 17, 0), dt.datetime(2025, 5, 25, 0, 0)
 TRANS_FRAMES = {"cut": 0, "whip": 6, "dissolve": 12, "dip": 10}
 XFADE = {"whip": "slideleft", "dissolve": "fade", "dip": "fadewhite"}
@@ -74,12 +74,14 @@ def probe(path):
 
 
 def cmd_scan(a):
+    drop = [x.strip() for x in (a.exclude or "").split(",") if x.strip()]
+    keep = lambda stem: SINCE <= clip_start(stem) <= UNTIL and not any(x in stem for x in drop)
     clips = {}
     media = Path(a.media)
     if media.is_dir():
         for p in sorted(media.rglob("*")):
             m = CLIP_RE.match(p.name)      # exact names only: "..._D (1).MP4" Drive duplicates are skipped
-            if m and SINCE <= clip_start(p.stem) <= UNTIL:
+            if m and keep(p.stem):
                 c = clips.setdefault(p.stem, {"stem": p.stem, "num": m[2], "start": clip_start(p.stem).isoformat()})
                 c[m[3].lower()] = probe(p)
     if clips:
@@ -89,7 +91,7 @@ def cmd_scan(a):
         src = "scanned " + str(media)
     else:  # no media on this machine: fall back to the Drive listing so an EDL can still be drafted
         dm = json.loads((HERE / "drive_manifest.json").read_text())
-        clips = {c["stem"]: c for c in dm["clips"] if SINCE <= clip_start(c["stem"]) <= UNTIL}
+        clips = {c["stem"]: c for c in dm["clips"] if keep(c["stem"])}
         src = "drive_manifest.json (no media found in %s; durations from Drive timestamps)" % media
     out = sorted(clips.values(), key=lambda c: c["start"])
     for c in out:
@@ -844,6 +846,8 @@ def main():
     ap.add_argument("--music", help="licensed beat track to use instead of the built-in synth")
     ap.add_argument("--music-offset", type=float, default=0.0, help="seconds into --music where beat 1 falls")
     ap.add_argument("--bpm", type=float, help="tempo of --music (re-run `edl` so cuts follow it)")
+    ap.add_argument("--exclude", help="comma-separated clips to leave out, matched against the filename, "
+                    "e.g. 112633_0196,0198 (applies at `scan`; re-run `edl` afterwards)")
     ap.add_argument("--input-lut", help="optional .cube applied before the grade (e.g. D-Log M to Rec.709)")
     ap.add_argument("--font-bold")
     ap.add_argument("--font-regular")

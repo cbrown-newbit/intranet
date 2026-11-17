@@ -11,17 +11,17 @@ Transitions land centred on the record-in time (dissolve 12 f, whip 6 f, dip-to-
 
 | # | Rec in | Rec out | Dur | Clip | Src in | Src out | Speed | Transition in | Audio | Clock | Note |
 |--:|---|---|--:|---|--:|--:|---|---|---|---|---|
-| 1 | 00:00:00:00 | 00:00:02:20 | 2.67 | Fri 0201 | 3.59 | 6.26 | 1x | fade-in | music + nat | Friday 11:40 AM | establishing shot under main title |
-| 2 | 00:00:02:20 | 00:00:04:00 | 1.33 | Fri 0201 | 13.31 | 14.64 | 1x | cut | music + nat | Friday 11:40 AM | quick cut on action |
-| 3 | 00:00:04:00 | 00:00:05:10 | 1.33 | Fri 0201 | 22.36 | 23.69 | 1x | cut | music + nat | Friday 11:40 AM | quick cut on action |
-| 4 | 00:00:05:10 | 00:00:06:20 | 1.33 | Fri 0201 | 31.07 | 33.08 | 1x > 2x ramp | cut | music | Friday 11:41 AM | quick cut on action, ramp 1x>2x |
-| 5 | 00:00:06:20 | 00:00:08:00 | 1.33 | Fri 0202 | 6.43 | 7.77 | 1x | cut | music + nat | Friday 11:42 AM | quick cut on action |
-| 6 | 00:00:08:00 | 00:00:09:10 | 1.33 | Fri 0202 | 19.83 | 21.17 | 1x | cut | music + nat | Friday 11:42 AM | quick cut on action |
-| 7 | 00:00:09:10 | 00:00:10:20 | 1.33 | Fri 0202 | 32.90 | 34.90 | 1x > 2x ramp | cut | music | Friday 11:42 AM | quick cut on action, ramp 1x>2x |
-| 8 | 00:00:10:20 | 00:00:12:00 | 1.33 | Fri 0203 | 5.88 | 7.22 | 1x | cut | music + nat | Friday 11:44 AM | quick cut on action |
-| 9 | 00:00:12:00 | 00:00:13:10 | 1.33 | Fri 0203 | 18.18 | 19.52 | 1x | cut | music + nat | Friday 11:44 AM | quick cut on action |
-| 10 | 00:00:13:10 | 00:00:14:20 | 1.33 | Fri 0203 | 30.15 | 32.15 | 1x > 2x ramp | cut | music | Friday 11:44 AM | quick cut on action, ramp 1x>2x |
-| 11 | 00:00:14:20 | 00:00:16:00 | 1.33 | Fri 0203 | 42.73 | 44.07 | 1x | cut | music + nat | Friday 11:45 AM | quick cut on action |
+| 1 | 00:00:00:00 | 00:00:02:20 | 2.67 | Fri 0195 | 3.62 | 6.28 | 1x | fade-in | music + nat | Friday 11:25 AM | establishing shot under main title |
+| 2 | 00:00:02:20 | 00:00:04:00 | 1.33 | Fri 0195 | 13.38 | 14.72 | 1x | cut | music + nat | Friday 11:25 AM | quick cut on action |
+| 3 | 00:00:04:00 | 00:00:05:10 | 1.33 | Fri 0196 | 6.83 | 8.17 | 1x | cut | music + nat | Friday 11:26 AM | quick cut on action |
+| 4 | 00:00:05:10 | 00:00:06:20 | 1.33 | Fri 0197 | 6.00 | 8.00 | 1x > 2x ramp | cut | music | Friday 11:27 AM | quick cut on action, ramp 1x>2x |
+| 5 | 00:00:06:20 | 00:00:08:00 | 1.33 | Fri 0198 | 6.83 | 8.17 | 1x | cut | music + nat | Friday 11:33 AM | quick cut on action |
+| 6 | 00:00:08:00 | 00:00:09:10 | 1.33 | Fri 0199 | 21.33 | 22.67 | 1x | cut | music + nat | Friday 11:35 AM | quick cut on action |
+| 7 | 00:00:09:10 | 00:00:10:20 | 1.33 | Fri 0200 | 21.00 | 23.00 | 1x > 2x ramp | cut | music | Friday 11:37 AM | quick cut on action, ramp 1x>2x |
+| 8 | 00:00:10:20 | 00:00:12:00 | 1.33 | Fri 0201 | 17.83 | 19.17 | 1x | cut | music + nat | Friday 11:40 AM | quick cut on action |
+| 9 | 00:00:12:00 | 00:00:13:10 | 1.33 | Fri 0202 | 19.83 | 21.17 | 1x | cut | music + nat | Friday 11:42 AM | quick cut on action |
+| 10 | 00:00:13:10 | 00:00:14:20 | 1.33 | Fri 0203 | 11.70 | 13.70 | 1x > 2x ramp | cut | music | Friday 11:44 AM | quick cut on action, ramp 1x>2x |
+| 11 | 00:00:14:20 | 00:00:16:00 | 1.33 | Fri 0203 | 36.58 | 37.92 | 1x | cut | music + nat | Friday 11:45 AM | quick cut on action |
 
 ## Act 2 - The Deep Clean
 
@@ -70,13 +70,19 @@ Transitions land centred on the record-in time (dissolve 12 f, whip 6 f, dip-to-
 | 47 | 00:00:56:00 | 00:00:58:20 | 2.67 | Sun 0218 | 46.67 | 49.33 | 1x | dissolve (12 f) | music + nat + whoosh | Sunday 5:47 AM | cinematic glide |
 | 48 | 00:00:58:20 | 00:01:01:10 | 2.67 | Sun 0219 | 33.67 | 36.33 | 1x | dissolve (12 f) | music + nat + whoosh | Sunday 5:50 AM | cinematic glide |
 | 49 | 00:01:01:10 | 00:01:04:00 | 2.67 | Sun 0220 | 6.60 | 9.27 | 1x | dissolve (12 f) | music + nat + whoosh | Sunday 5:54 AM | cinematic glide |
-| 50 | 00:01:04:00 | 00:01:09:10 | 5.33 | Sun 0220 | 20.33 | 25.67 | 1x | dissolve (12 f) | music + whoosh | Sunday 5:54 AM | before/after split: 0201 vs 0220 |
+| 50 | 00:01:04:00 | 00:01:09:10 | 5.33 | Sun 0220 | 20.33 | 25.67 | 1x | dissolve (12 f) | music + whoosh | Sunday 5:54 AM | before/after split: 0195 vs 0220 |
 | 51 | 00:01:09:10 | 00:01:12:00 | 2.67 | Sun 0220 | 36.83 | 39.50 | 1x | dissolve (12 f) | music + nat + whoosh | Sunday 5:54 AM | outro hero shot, fade to black |
 
 ## Source clips
 
 | Clip | File | Starts | Duration | Act |
 |---|---|---|--:|--:|
+| Fri 0195 | `DJI_20250523112544_0195_D.MP4` | Friday 11:25 AM | 19 s | 1 |
+| Fri 0196 | `DJI_20250523112633_0196_D.MP4` | Friday 11:26 AM | 15 s | 1 |
+| Fri 0197 | `DJI_20250523112705_0197_D.MP4` | Friday 11:27 AM | 14 s | 1 |
+| Fri 0198 | `DJI_20250523113323_0198_D.MP4` | Friday 11:33 AM | 15 s | 1 |
+| Fri 0199 | `DJI_20250523113516_0199_D.MP4` | Friday 11:35 AM | 44 s | 1 |
+| Fri 0200 | `DJI_20250523113723_0200_D.MP4` | Friday 11:37 AM | 44 s | 1 |
 | Fri 0201 | `DJI_20250523114036_0201_D.MP4` | Friday 11:40 AM | 37 s | 1 |
 | Fri 0202 | `DJI_20250523114158_0202_D.MP4` | Friday 11:41 AM | 41 s | 1 |
 | Fri 0203 | `DJI_20250523114425_0203_D.MP4` | Friday 11:44 AM | 50 s | 1 |

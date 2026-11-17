@@ -20,6 +20,7 @@ Needs `ffmpeg`/`ffprobe`, `numpy` and `Pillow`. Output lands in `out/`.
 | `--height 2160` | 4K export (default 1080) |
 | `--proxy` | preview render from the LRFs instead of the masters |
 | `--music track.wav --bpm 92 --music-offset 0.4` | use a licensed track; re-run `edl` so cuts follow its tempo |
+| `--exclude 112633_0196,0198` | leave clips out (matched against the filename); applies at `scan`, then re-run `edl` |
 | `--input-lut dlogm_to_709.cube` | conversion LUT for D-Log M / HDR footage, applied before the grade |
 
 ## Stages
