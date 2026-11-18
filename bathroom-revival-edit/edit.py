@@ -660,7 +660,8 @@ class Overlay:
         if "lower" in st:
             act, a = st["lower"]
             x, y = self.margin - int((1 - a) * 24 * u), self.lower_y
-            day = clip_start(next(s for s in self.segs if s["act"] == act)["clip"]).strftime("%A, %B %-d")
+            day = clip_start(next(s for s in self.segs if s["act"] == act)["clip"])
+            day = day.strftime("%A, %B ") + str(day.day)            # no %-d: not portable to Windows
             f1, f2 = self.f("b", 44), self.f("r", 28)
             w = max(d.textlength(ACT_TITLES[act], font=f1), d.textlength(day, font=f2))
             d.rounded_rectangle([x - 22 * u, y - 18 * u, x + w + 46 * u, y + 104 * u], radius=int(10 * u),
@@ -768,10 +769,10 @@ def render_segments(edl, by, a, W, H, tag, lut):
                 "vstack" if vert else "hstack")
             run(["ffmpeg", "-v", "error", "-y", "-ss", "%.3f" % b["src_in"], "-t", "%.3f" % (D + 1), "-i",
                  source(by[b["clip"]], a.proxy), "-ss", "%.3f" % s["render_in"], "-t", "%.3f" % (D + 1), "-i", src,
-                 "-filter_complex", fc, "-map", "[v]", "-frames:v", nfr] + enc + [out])
+                 "-filter_complex", fc, "-map", "[v]", "-frames:v", nfr] + enc + [out], cwd=a.work)
         else:
             run(["ffmpeg", "-v", "error", "-y", "-ss", "%.3f" % s["render_in"], "-t", "%.3f" % (span + 1), "-i", src,
-                 "-vf", seg_filter(s, W, H, lut, a.input_lut), "-frames:v", nfr] + enc + [out])
+                 "-vf", seg_filter(s, W, H, lut, a.input_lut), "-frames:v", nfr] + enc + [out], cwd=a.work)
     return files
 
 
@@ -826,8 +827,14 @@ def cmd_render(a):
     edl = json.loads((HERE / "edl.json").read_text())
     by = {c["stem"]: c for c in load_manifest(a)}
     a.work.mkdir(parents=True, exist_ok=True)
-    lut = a.work / "warm_interior.cube"
-    write_lut(lut)
+    # ffmpeg runs inside the work folder and LUTs are referenced by bare filename: a Windows path
+    # (C:\\Users\\...) cannot be written inside an ffmpeg filter string.
+    write_lut(a.work / "warm_interior.cube")
+    lut = "warm_interior.cube"
+    if a.input_lut:
+        import shutil
+        shutil.copyfile(a.input_lut, a.work / "input_lut.cube")
+        a.input_lut = "input_lut.cube"
     wav = a.work / "mix.wav"
     build_audio(edl, by, a.music, a.music_offset, wav)
     for c in by.values():
@@ -861,6 +868,8 @@ def main():
     ap.add_argument("--font-bold")
     ap.add_argument("--font-regular")
     a = ap.parse_args()
+    a.media, a.work, a.out = str(Path(a.media).resolve()), a.work.resolve(), a.out.resolve()
+    a.music = str(Path(a.music).resolve()) if a.music else None
     if a.bpm:
         BPM = a.bpm
     if a.hero:
