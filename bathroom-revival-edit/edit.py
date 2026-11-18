@@ -868,6 +868,7 @@ def main():
     ap.add_argument("--font-bold")
     ap.add_argument("--font-regular")
     a = ap.parse_args()
+    print("edit.py version 5")
     a.media, a.work, a.out = str(Path(a.media).resolve()), a.work.resolve(), a.out.resolve()
     a.music = str(Path(a.music).resolve()) if a.music else None
     if a.bpm:
