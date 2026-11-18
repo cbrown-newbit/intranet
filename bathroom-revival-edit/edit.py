@@ -33,7 +33,8 @@ ACT2_FROM, ACT3_FROM = dt.datetime(2025, 5, 23, 17, 0), dt.datetime(2025, 5, 25,
 TRANS_FRAMES = {"cut": 0, "whip": 6, "dissolve": 12, "dip": 10}
 XFADE = {"whip": "slideleft", "dissolve": "fade", "dip": "fadewhite"}
 ACCENT = (232, 176, 74)
-CLIP_RE = re.compile(r"^DJI_(\d{14})_(\d{4})_D\.(MP4|LRF)$", re.I)
+# Also accepts the suffixes Google Drive adds when it zips a download: "_D-003.MP4", "_D (1).LRF".
+CLIP_RE = re.compile(r"^DJI_(\d{14})_(\d{4})_D(?:-\d+)?(?: \(\d+\))?\.(MP4|LRF)$", re.I)
 
 
 def bf(beats):
@@ -82,10 +83,12 @@ def cmd_scan(a):
     media = Path(a.media)
     if media.is_dir():
         for p in sorted(media.rglob("*")):
-            m = CLIP_RE.match(p.name)      # exact names only: "..._D (1).MP4" Drive duplicates are skipped
-            if m and keep(p.stem):
-                c = clips.setdefault(p.stem, {"stem": p.stem, "num": m[2], "start": clip_start(p.stem).isoformat()})
-                c[m[3].lower()] = probe(p)
+            m = CLIP_RE.match(p.name)
+            stem = "DJI_%s_%s_D" % (m[1], m[2]) if m else ""
+            if m and keep(stem):
+                c = clips.setdefault(stem, {"stem": stem, "num": m[2], "start": clip_start(stem).isoformat()})
+                if m[3].lower() not in c or p.stem == stem:      # a cleanly named file wins over a renamed copy
+                    c[m[3].lower()] = probe(p)
     if clips:
         for c in clips.values():
             c["duration"] = (c.get("mp4") or c["lrf"])["duration"]

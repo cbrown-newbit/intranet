@@ -25,7 +25,7 @@ Needs `ffmpeg`/`ffprobe`, `numpy` and `Pillow`. Output lands in `out/`.
 
 ## Stages
 
-1. `scan` pairs each LRF with its MP4 by exact filename (Drive's `(1)` duplicates are ignored) and
+1. `scan` pairs each LRF with its MP4 by filename (Drive's `-003` and `(1)` download suffixes are tolerated) and
    assigns acts by timestamp: Friday midday, Friday night + Saturday, Sunday morning.
 2. `analyze` reads only the LRFs: motion energy (cut on action, steady glides), where the action sits
    in frame (9:16 crop position), midtone colour per session (white-balance matching), speech-like
